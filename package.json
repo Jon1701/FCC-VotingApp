@@ -1,0 +1,43 @@
+{
+  "name": "voting-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "cross-env NODE_ENV=production webpack -p",
+    "dev": "cross-env NODE_ENV=development webpack && webpack-dev-server --quiet --hot --progress --inline"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jon1701/VotingApp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jon1701/VotingApp/issues"
+  },
+  "homepage": "https://github.com/Jon1701/VotingApp#readme",
+  "dependencies": {
+    "babel": "^6.5.2",
+    "babel-core": "^6.17.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
+    "classnames": "^2.2.5",
+    "cross-env": "^3.1.3",
+    "css-loader": "^0.25.0",
+    "file-loader": "^0.9.0",
+    "html-loader": "^0.4.4",
+    "html-webpack-plugin": "^2.24.0",
+    "html-webpack-template": "^5.4.1",
+    "json-loader": "^0.5.4",
+    "node-sass": "^3.10.1",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "sass-loader": "^4.0.2",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.16.2",
+    "webpack-uglify-js-plugin": "^1.1.9"
+  }
+}

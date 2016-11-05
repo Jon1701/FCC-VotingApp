@@ -1,0 +1,7 @@
+JSON files go inside this folder.
+
+Can be accessed within a React Component by:
+
+require('data/filename.json');
+
+since data/ is an alias to a root path defined in webpack.config.js.
