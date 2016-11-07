@@ -17,6 +17,8 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 // Webpack config.
 var config = {
 
+  watch: true,
+
   // Starting point for JavaScript modules to be bundled together.
   entry: path.join(PATHS.SRC, 'index.js'),
 
