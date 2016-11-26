@@ -1,19 +1,8 @@
 // Mongoose.
 const mongoose = require('mongoose');
 
-// Settings for database access.
-const dbConfig = {
-  username: process.env['DBUSER'],
-  password: process.env['DBPASSWORD'],
-  database: process.env['DBNAME'],
-  domain: process.env['DBURL'],
-  port: process.env['DBPORT']
-}
-
-// Store database connection string in dbConfig.
-dbConfig['connString'] = 'mongodb://' + dbConfig.username + ':' + dbConfig.password + '@' + dbConfig.domain + ':' + dbConfig.port + '/' + dbConfig.database;
-
 // Connect to the database.
+const dbConfig = require('../config/dbConfig');
 mongoose.connect(dbConfig['connString']);
 
 // Database model.
