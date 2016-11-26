@@ -5,9 +5,7 @@ const jwt = require('jsonwebtoken');
 const morgan = require('morgan');
 
 ////////////////////////////////////////////////////////////////////////////////
-//
 // Express
-//
 ////////////////////////////////////////////////////////////////////////////////
 const express = require('express');
 const app = express();
@@ -21,9 +19,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 ////////////////////////////////////////////////////////////////////////////////
-//
 // Mongoose and database connection
-//
 ////////////////////////////////////////////////////////////////////////////////
 
 // Get username, password, and database name.
@@ -43,11 +39,32 @@ const mongoose = require('mongoose');
 mongoose.connect(dbConnectionString);
 
 ////////////////////////////////////////////////////////////////////////////////
-// Routes.
+// User signup.
 ////////////////////////////////////////////////////////////////////////////////
-app.post('/signup', (req, res) => {
-  console.log(req.body)
-  return res.send(req.body);
+app.post('/signup', (req, res, next) => {
+
+  // Get username and password.
+  const username = req.body.username;
+  const password = req.body.password;
+
+  // Check if username and password are provided.
+  if (!username || !password) {
+    return next('Both a username and password are required.');
+  }
+
+  // Regex rules.
+  const ruleUsername = /^[\w]{8,25}$/;
+  const rulePassword = /^[\w]{8,50}$/;
+
+  // Check to see if the username and password are valid.
+  if (!ruleUsername.test(username)) {
+    return next('Invalid username');
+  } else if (!rulePassword.test(password)) {
+    return next('Invalid password');
+  }
+
+  res.send('Username creation successful.');
+
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -60,7 +77,7 @@ app.use(express.static('dist'));
 ////////////////////////////////////////////////////////////////////////////////
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send('Something broke!');
+  res.status(500).send({error: err});
 });
 
 ////////////////////////////////////////////////////////////////////////////////
