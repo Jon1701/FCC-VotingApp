@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 const dbConfig = require('../config/dbConfig');
 mongoose.connect(dbConfig['connString']);
 
+const loginHash = require('../authentication/userLogin');
+
 // Database model.
 const User = require('../models/User');
 
@@ -42,10 +44,16 @@ const signup = (req, res, next) => {
     // Check if the username has been found.
     if (results.length == 0) {
 
+      // Generate salt.
+      const salt = loginHash.generateSalt(password.length);
+
+      // Generate hashed password.
+      const hashedPassword = loginHash.generateHashedPassword(password, salt);
+
       // No username found, create new user.
       const newUser = User({
         username: username,
-        password: password
+        password: hashedPassword
       });
 
       // Save the user.
