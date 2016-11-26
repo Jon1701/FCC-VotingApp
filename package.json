@@ -38,6 +38,7 @@
     "html-webpack-plugin": "^2.24.0",
     "html-webpack-template": "^5.4.1",
     "json-loader": "^0.5.4",
+    "jsonwebtoken": "^7.1.9",
     "node-sass": "^3.10.1",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",

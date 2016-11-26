@@ -2,6 +2,9 @@
 var express = require('express');
 var app = express();
 
+// Create, sign, verify JSON web tokens.
+const jwt = require('jsonwebtoken');
+
 // Gets parameters from requests.
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: false}));
