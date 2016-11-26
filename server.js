@@ -1,23 +1,53 @@
-// Express.
-var express = require('express');
-var app = express();
-
 // Create, sign, verify JSON web tokens.
 const jwt = require('jsonwebtoken');
+
+// Log requests to console.
+const morgan = require('morgan');
+
+////////////////////////////////////////////////////////////////////////////////
+//
+// Express
+//
+////////////////////////////////////////////////////////////////////////////////
+const express = require('express');
+const app = express();
+
+// Use morgan to log requests to console.
+app.use(morgan('dev'));
 
 // Gets parameters from requests.
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-// Mongoose.
+////////////////////////////////////////////////////////////////////////////////
+//
+// Mongoose and database connection
+//
+////////////////////////////////////////////////////////////////////////////////
+
+// Get username, password, and database name.
+const dbConfig = {
+  username: process.env['DBUSER'],
+  password: process.env['DBPASSWORD'],
+  database: process.env['DBNAME'],
+  domain: 'ds111178.mlab.com',
+  port: 11178
+}
+
+// Database connection string.
+const dbConnectionString = 'mongodb://' + dbConfig.username + ':' + dbConfig.password + '@' + dbConfig.domain + ':' + dbConfig.port + '/' + dbConfig.database;
+
+// Connect to the database.
 const mongoose = require('mongoose');
+mongoose.connect(dbConnectionString);
 
 ////////////////////////////////////////////////////////////////////////////////
 // Routes.
 ////////////////////////////////////////////////////////////////////////////////
-app.get('/test', (req, res) => {
-  return res.send("hello world");
+app.post('/signup', (req, res) => {
+  console.log(req.body)
+  return res.send(req.body);
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -36,7 +66,7 @@ app.use((err, req, res, next) => {
 ////////////////////////////////////////////////////////////////////////////////
 // Server.
 ////////////////////////////////////////////////////////////////////////////////
-var port = process.env.PORT || 8080;
+const port = process.env.PORT || 8080;
 app.listen(port, () => {
   console.log('Listening for connections on PORT ' + port);
 });
