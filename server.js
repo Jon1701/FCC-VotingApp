@@ -38,6 +38,11 @@ const dbConnectionString = 'mongodb://' + dbConfig.username + ':' + dbConfig.pas
 const mongoose = require('mongoose');
 mongoose.connect(dbConnectionString);
 
+// Database models.
+const dbModels = {
+  User: require('./src/models/User')
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // User signup.
 ////////////////////////////////////////////////////////////////////////////////
@@ -63,7 +68,44 @@ app.post('/signup', (req, res, next) => {
     return next('Invalid password');
   }
 
-  res.send('Username creation successful.');
+  // Search the collection by username.
+  dbModels.User.find({username: username}, (err, results) => {
+
+    // Error checking.
+    if (err) {
+      return next('Database error occurred.');
+    }
+
+    // Check if the username has been found.
+    if (results.length == 0) {
+
+      // No username found, create new user.
+      const newUser = dbModels.User({
+        username: username,
+        password: password
+      });
+
+      // Save the user.
+      newUser.save((err) => {
+
+        // Error check.
+        if (err) {
+          return next('Database error. User not created.');
+        }
+
+        // Return success message.
+        return res.send('User ' + username + ' successfully created.');
+
+      });
+
+    } else {
+
+      // User already exists. Return error message.
+      return next('User ' + username + ' already exists.');
+
+    }
+
+  });
 
 });
 
