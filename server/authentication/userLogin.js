@@ -31,7 +31,7 @@ const generateHashedPassword = (password, salt) => {
   // Return salt, and hashed password.
   return {
     salt: salt,
-    hashedPassword: hashedPassword
+    hash: hashedPassword
   }
 
 }

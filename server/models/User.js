@@ -3,7 +3,10 @@ const Schema = mongoose.Schema;
 
 const User = mongoose.model('User', new Schema({
   username: String,
-  password: Object
+  password: {
+    hash: String,
+    salt: String
+  }
 }));
 
 module.exports = User;
