@@ -39,6 +39,7 @@
     "html-webpack-template": "^5.4.1",
     "json-loader": "^0.5.4",
     "jsonwebtoken": "^7.1.9",
+    "mongoose": "^4.7.0",
     "node-sass": "^3.13.0",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
