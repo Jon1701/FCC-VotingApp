@@ -6,7 +6,11 @@ const dbConfig = require('../config/dbConfig');
 mongoose.Promise = global.Promise;
 mongoose.connect(dbConfig['connString']);
 
-const loginHash = require('../authentication/userLogin');
+// Module for generating hashed passwords.
+const hashedAuthentication = require('../authentication/userLogin');
+
+// Module containing regular expressions
+const regexRules = require('../regex/index');
 
 // Database model.
 const User = require('../models/User');
@@ -23,14 +27,10 @@ const signup = (req, res, next) => {
     return next('Both a username and password are required.');
   }
 
-  // Regex rules.
-  const ruleUsername = /^[\w]{8,25}$/;
-  const rulePassword = /^[\w]{8,50}$/;
-
   // Check to see if the username and password are valid.
-  if (!ruleUsername.test(username)) {
+  if (!regexRules.username.test(username)) {
     return next('Invalid username');
-  } else if (!rulePassword.test(password)) {
+  } else if (!regexRules.password.test(password)) {
     return next('Invalid password');
   }
 
@@ -46,12 +46,12 @@ const signup = (req, res, next) => {
     if (results.length == 0) {
 
       // Generate salt.
-      const salt = loginHash.generateSalt(password.length);
+      const salt = hashedAuthentication.generateSalt(password.length);
 
       // No username found, create new user.
       const newUser = User({
         username: username,
-        password: loginHash.generateHashedPassword(password, salt)
+        password: hashedAuthentication.generateHashedPassword(password, salt)
       });
 
       // Save the user.
