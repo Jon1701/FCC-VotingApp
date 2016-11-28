@@ -1,13 +1,14 @@
-const createResponse = (message) => {
+const response = (code, message) => {
   return {
     type: 'success',
+    code: code,
     message: message
   }
 }
 
 const successCodes = {
   SIGNUP: {
-    USER_CREATED: createResponse('User successfully created.')
+    USER_CREATED: response('USER_CREATED', 'User successfully created.')
   }
 
 }
