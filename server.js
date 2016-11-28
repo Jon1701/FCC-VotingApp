@@ -1,6 +1,9 @@
 // Log requests to console.
 const morgan = require('morgan');
 
+// Middleware.
+const verifyJwt = require('./server/middleware/verifyJsonWebToken');
+
 ////////////////////////////////////////////////////////////////////////////////
 // Express
 ////////////////////////////////////////////////////////////////////////////////
@@ -30,6 +33,9 @@ app.use('/auth', authRoutes);
 
 // User login.
 authRoutes.post('/login', require('./server/routes/auth/login'));
+
+// Middleware to verify JSON Web Tokens.
+authRoutes.use(verifyJwt);
 
 // Base endpoint for the /auth router.
 authRoutes.get('/', require('./server/routes/auth/index'));
