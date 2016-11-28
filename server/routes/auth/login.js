@@ -7,17 +7,17 @@ const jwt = require('jsonwebtoken');  // JSON Web Tokens
 ////////////////////////////////////////////////////////////////////////////////
 // Externals
 ////////////////////////////////////////////////////////////////////////////////
-const hashedAuthentication = require('../authentication/userLogin');  //Generates hashed credentials
-const appConfig = require('../config/appConfig');           // Application variables
-const errorMessages = require('../responseMessages/error'); // Error codes
-const dbConfig = require('../config/dbConfig');             // Database information
+const hashedAuthentication = require('../../authentication/userLogin');  //Generates hashed credentials
+const appConfig = require('../../config/appConfig');           // Application variables
+const errorMessages = require('../../responseMessages/error'); // Error codes
+const dbConfig = require('../../config/dbConfig');             // Database information
 
 ////////////////////////////////////////////////////////////////////////////////
 // Database
 ////////////////////////////////////////////////////////////////////////////////
 mongoose.createConnection(dbConfig['connString']);  // Connect to the database.
 
-const User = require('../models/User'); // Database model for a User.
+const User = require('../../models/User'); // Database model for a User.
 
 ////////////////////////////////////////////////////////////////////////////////
 // Route definition
