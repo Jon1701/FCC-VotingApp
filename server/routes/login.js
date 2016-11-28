@@ -1,23 +1,27 @@
-// Mongoose.
-const mongoose = require('mongoose');
+////////////////////////////////////////////////////////////////////////////////
+// Module dependencies
+////////////////////////////////////////////////////////////////////////////////
+const mongoose = require('mongoose'); // MongoDB database driver.
+const jwt = require('jsonwebtoken');  // JSON Web Tokens
 
-// Json web token library.
-const jwt = require('jsonwebtoken');
+////////////////////////////////////////////////////////////////////////////////
+// Externals
+////////////////////////////////////////////////////////////////////////////////
+const hashedAuthentication = require('../authentication/userLogin');  //Generates hashed credentials
+const appConfig = require('../config/appConfig');           // Application variables
+const errorMessages = require('../responseMessages/error'); // Error codes
+const dbConfig = require('../config/dbConfig');             // Database information
 
-// Access application environment variables.
-const appConfig = require('../config/appConfig');
+////////////////////////////////////////////////////////////////////////////////
+// Database
+////////////////////////////////////////////////////////////////////////////////
+mongoose.createConnection(dbConfig['connString']);  // Connect to the database.
 
-// Connect to the database.
-const dbConfig = require('../config/dbConfig');
-mongoose.createConnection(dbConfig['connString']);
+const User = require('../models/User'); // Database model for a User.
 
-// Database model.
-const User = require('../models/User');
-
-// Module for generating hashed passwords.
-const hashedAuthentication = require('../authentication/userLogin');
-
-// Route definition.
+////////////////////////////////////////////////////////////////////////////////
+// Route definition
+////////////////////////////////////////////////////////////////////////////////
 const login = (req, res, next) => {
 
   // Get username and password.
@@ -26,14 +30,14 @@ const login = (req, res, next) => {
 
   // Check if username and password are provided.
   if (!username || !password) {
-    return next('Both a username and password are required.');
+    return next(errorMessages.LOGIN.NO_CREDENTIALS);
   }
 
   // Access the database.
   User.findOne({username: username}, (error, result) => {
 
     // Error check.
-    if (error) { return next('Login failed. Unable to access database.'); }
+    if (error) { return next(errorMessages.LOGIN.NO_DB_CONNECTION); }
 
     // Check if a matching user was found.
     if (result) {
@@ -69,13 +73,13 @@ const login = (req, res, next) => {
       } else {
 
         // Passwords do not match, return an error.
-        return next('Invalid username or password.');
+        return next(errorMessages.LOGIN.INVALID_CREDENTIALS);
       }
 
     } else {
 
       // No user found, just return an error stating invalid username or password.
-      return next('Invalid username or password');
+      return next(errorMessages.LOGIN.INVALID_CREDENTIALS);
     }
 
   });

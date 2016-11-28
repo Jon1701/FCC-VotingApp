@@ -1,21 +1,28 @@
-// Mongoose.
-const mongoose = require('mongoose');
+////////////////////////////////////////////////////////////////////////////////
+// Module dependencies
+////////////////////////////////////////////////////////////////////////////////
+const mongoose = require('mongoose'); // MongoDB database driver.
 
-// Connect to the database.
-const dbConfig = require('../config/dbConfig');
+////////////////////////////////////////////////////////////////////////////////
+// Externals
+////////////////////////////////////////////////////////////////////////////////
+const dbConfig = require('../config/dbConfig');                       // Database information
+const errorMessages = require('../responseMessages/error');           // Error messages.
+const successMessages = require('../responseMessages/success')        // Success messages.
+const hashedAuthentication = require('../authentication/userLogin');  // Generates hashed credentials
+const regexRules = require('../regex/index');                         // Regular expressions.
+
+////////////////////////////////////////////////////////////////////////////////
+// Database
+////////////////////////////////////////////////////////////////////////////////
 mongoose.Promise = global.Promise;
-mongoose.connect(dbConfig['connString']);
+mongoose.connect(dbConfig['connString']); // Connect to the database.
 
-// Module for generating hashed passwords.
-const hashedAuthentication = require('../authentication/userLogin');
+const User = require('../models/User'); // User model.
 
-// Module containing regular expressions
-const regexRules = require('../regex/index');
-
-// Database model.
-const User = require('../models/User');
-
-// Route definition.
+////////////////////////////////////////////////////////////////////////////////
+// Route definition
+////////////////////////////////////////////////////////////////////////////////
 const signup = (req, res, next) => {
 
   // Get username and password.
@@ -24,14 +31,14 @@ const signup = (req, res, next) => {
 
   // Check if username and password are provided.
   if (!username || !password) {
-    return next('Both a username and password are required.');
+    return next(errorMessages.SIGNUP.NO_CREDENTIALS);
   }
 
   // Check to see if the username and password are valid.
   if (!regexRules.username.test(username)) {
-    return next('Invalid username');
+    return next(errorMessages.SIGNUP.INVALID_USERNAME);
   } else if (!regexRules.password.test(password)) {
-    return next('Invalid password');
+    return next(errorMessages.SIGNUP.INVALID_PASSWORD);
   }
 
   // Search the collection by username.
@@ -39,7 +46,7 @@ const signup = (req, res, next) => {
 
     // Error checking.
     if (err) {
-      return next('Database error occurred.');
+      return next(errorMessages.SIGNUP.NO_DB_CONNECTION);
     }
 
     // Check if the username has been found.
@@ -59,18 +66,18 @@ const signup = (req, res, next) => {
 
         // Error check.
         if (err) {
-          return next('Database error. User not created.');
+          return next(errorMessages.SIGNUP.NO_DB_CONNECTION);
         }
 
         // Return success message.
-        return res.send('User ' + username + ' successfully created.');
+        return res.send(successMessages.SIGNUP.USER_CREATED);
 
       });
 
     } else {
 
       // User already exists. Return error message.
-      return next('User ' + username + ' already exists.');
+      return next(errorMessages.SIGNUP.USER_EXISTS);
 
     }
 
