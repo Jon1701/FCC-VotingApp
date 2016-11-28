@@ -1,6 +1,12 @@
 // Mongoose.
 const mongoose = require('mongoose');
 
+// Json web token library.
+const jwt = require('jsonwebtoken');
+
+// Access application environment variables.
+const appConfig = require('../config/appConfig');
+
 // Connect to the database.
 const dbConfig = require('../config/dbConfig');
 mongoose.createConnection(dbConfig['connString']);
@@ -45,8 +51,20 @@ const login = (req, res, next) => {
       // Compare the stored hashed password with the generated one.
       if (userHashedPassword == generatedHashedPassword) {
 
-        // Passwords match, login successful.
-        return res.json('login successful');
+        // Create a JSON web token using the username, and secret signing key, which
+        // expires in 24 hours.
+        const token = jwt.sign(
+          {username: username},
+          appConfig.JWT_SIGNING_KEY,
+          {expiresIn: appConfig.JWT_TOKEN_EXPIRATION_MINUTES}
+        );
+
+        // Send jsonwebtoken as response.
+        return res.json({
+          success: true,
+          message: 'Token generated',
+          token: token
+        });
 
       } else {
 
