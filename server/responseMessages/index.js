@@ -22,8 +22,10 @@ const errorResponses = {
       EXPIRED_TOKEN: response('EXPIRED_TOKEN', 'Login token has expired.'),
     },
     POLL: {
-      INVALID_TITLE: response('INVALID_TITLE', 'Poll name can only contain letters, numbers, spaces, and must be between 8 and 1000 characters long.'),
-      NO_TITLE: response('NO_TITLE', 'Poll name is required.'),
+      INVALID_TITLE: response('INVALID_TITLE', 'Poll title must be between 8 and 1000 characters long.'),
+      INVALID_CHOICE: response('INVALID_CHOICE', 'Poll answers must be between 1 and 50 characters long.'),
+      NO_TITLE: response('NO_TITLE', 'Poll title is required.'),
+      INSUFFICIENT_POLL_ANSWERS: response('INSUFFICIENT_POLL_ANSWERS', 'At least two Poll answers must be provided, to a maximum of 10.')
     },
     DB: {
       DB_ERROR: response('DB_ERROR', 'Server error. Unable to connect to the database'),
