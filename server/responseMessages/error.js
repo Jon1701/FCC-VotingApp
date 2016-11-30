@@ -19,6 +19,11 @@ const errorCodes = {
     INVALID_PASSWORD: response('INVALID_PASSWORD', 'Invalid password. Alphanumeric characters only.'),
     NO_DB_CONNECTION: response('NO_DB_CONNECTION', 'Could not establish a connection to the server.'),
     USER_EXISTS: response('USER_EXISTS', 'A user with that username already exists.')
+  },
+  TOKEN: {
+    NO_TOKEN: response('NO_TOKEN', 'No token provided. Token is required for access'),
+    INVALID_TOKEN: response('INVALID_TOKEN', 'Token is invalid. Try and log in again.'),
+    EXPIRED_TOKEN: response('EXPIRED_TOKEN', 'Token has expired. Try and log in again.'),
   }
 }
 
