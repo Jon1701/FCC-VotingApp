@@ -1,9 +1,9 @@
 const rules = {
-  username: /^[\w]{8,25}$/,
-  password: /^[\w]{8,50}$/,
+  username: /^[\w\d]{8,25}$/,
+  password: /^[\w\d]{8,50}$/,
   POLL: {
-    TITLE_STRING: /^[\w\s]{8,50}$/,
-    CHOICE_STRING: /^[\w\s]{1,30}$/,
+    TITLE_STRING: /^[\w\d\s]{8,1000}$/,
+    CHOICE_STRING: /^[\w\d\s]{1,30}$/,
     OPTION_REQ_HEADER: /^option[\d]+$/
   }
 }
