@@ -16,14 +16,14 @@ const REGEX = require('../../regex/index');                     // Regular expre
 ////////////////////////////////////////////////////////////////////////////////
 // Database
 ////////////////////////////////////////////////////////////////////////////////
-mongoose.createConnection(DB_CONFIG['connString']);  // Connect to the database.
+mongoose.createConnection(DB_CONFIG['CONN_STRING']);  // Connect to the database.
 
 const Poll = require('../../models/Poll'); // Database model for a Poll.
 
 ////////////////////////////////////////////////////////////////////////////////
 // Route definition
 ////////////////////////////////////////////////////////////////////////////////
-const new_poll = (req, res, next) => {
+const create_poll = (req, res, next) => {
 
   // Title error check.
   const title = req.body.title;
@@ -78,4 +78,4 @@ const new_poll = (req, res, next) => {
 }
 
 // Export route definition.
-module.exports = new_poll;
+module.exports = create_poll;

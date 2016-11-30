@@ -41,7 +41,7 @@ authRoutes.use(verifyJwt);
 authRoutes.get('/', require('./server/routes/auth/index'));
 
 // Endpoint to create new poll.
-authRoutes.post('/new_poll', require('./server/routes/auth/new_poll'));
+authRoutes.post('/create_poll', require('./server/routes/auth/create_poll'));
 
 ////////////////////////////////////////////////////////////////////////////////
 // Serve files from the ./dist folder.
