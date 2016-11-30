@@ -43,6 +43,9 @@ authRoutes.get('/', require('./server/routes/auth/index'));
 // Endpoint to create new poll.
 authRoutes.post('/create_poll', require('./server/routes/auth/create_poll'));
 
+// Endpoint to cast a vote.
+authRoutes.post('/cast_vote', require('./server/routes/auth/cast_vote'));
+
 ////////////////////////////////////////////////////////////////////////////////
 // Serve files from the ./dist folder.
 ////////////////////////////////////////////////////////////////////////////////
