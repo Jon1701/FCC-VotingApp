@@ -6,16 +6,16 @@ const mongoose = require('mongoose'); // MongoDB database driver.
 ////////////////////////////////////////////////////////////////////////////////
 // Externals
 ////////////////////////////////////////////////////////////////////////////////
-const dbConfig = require('../config/dbConfig');               // Database information
+const DB_CONFIG = require('../config/dbConfig');               // Database information
 const RESPONSE = require('../responseMessages/index');        // Error/Success responses.
-const regexRules = require('../regex/index');                         // Regular expressions.
+const REGEX = require('../regex/index');                         // Regular expressions.
 const hashedAuthentication = require('../authentication/userLogin');  // Generates hashed credentials
 
 ////////////////////////////////////////////////////////////////////////////////
 // Database
 ////////////////////////////////////////////////////////////////////////////////
 mongoose.Promise = global.Promise;
-mongoose.connect(dbConfig['connString']); // Connect to the database.
+mongoose.connect(DB_CONFIG['CONN_STRING']); // Connect to the database.
 
 const User = require('../models/User'); // User model.
 
@@ -34,9 +34,9 @@ const signup = (req, res, next) => {
   }
 
   // Check to see if the username and password are valid.
-  if (!regexRules.username.test(username)) {
+  if (!REGEX.username.test(username)) {
     return next(RESPONSE.ERROR.SIGNUP.INVALID_USERNAME);
-  } else if (!regexRules.password.test(password)) {
+  } else if (!REGEX.password.test(password)) {
     return next(RESPONSE.ERROR.SIGNUP.INVALID_PASSWORD);
   }
 

@@ -8,7 +8,7 @@ const dbConfig = {
 }
 
 // Store database connection string in dbConfig.
-dbConfig['connString'] = 'mongodb://' + dbConfig.username + ':' + dbConfig.password + '@' + dbConfig.domain + ':' + dbConfig.port + '/' + dbConfig.database;
+dbConfig['CONN_STRING'] = 'mongodb://' + dbConfig.username + ':' + dbConfig.password + '@' + dbConfig.domain + ':' + dbConfig.port + '/' + dbConfig.database;
 
 // Export database configuration.
 module.exports = dbConfig;

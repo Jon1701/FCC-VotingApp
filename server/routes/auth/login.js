@@ -8,14 +8,14 @@ const jwt = require('jsonwebtoken');  // JSON Web Tokens
 // Externals
 ////////////////////////////////////////////////////////////////////////////////
 const hashedAuthentication = require('../../authentication/userLogin');  //Generates hashed credentials
-const appConfig = require('../../config/appConfig');           // Application variables
+const APP_CONFIG = require('../../config/appConfig');           // Application variables
 const RESPONSE = require('../../responseMessages/index');      // Error/Success responses.
-const dbConfig = require('../../config/dbConfig');             // Database information
+const DB_CONFIG = require('../../config/dbConfig');             // Database information
 
 ////////////////////////////////////////////////////////////////////////////////
 // Database
 ////////////////////////////////////////////////////////////////////////////////
-mongoose.createConnection(dbConfig['connString']);  // Connect to the database.
+mongoose.createConnection(DB_CONFIG['CONN_STRING']);  // Connect to the database.
 
 const User = require('../../models/User'); // Database model for a User.
 
@@ -59,8 +59,8 @@ const login = (req, res, next) => {
         // expires in 24 hours.
         const token = jwt.sign(
           {username: username},
-          appConfig.JWT_SIGNING_KEY,
-          {expiresIn: appConfig.JWT_TOKEN_EXPIRATION_SECONDS}
+          APP_CONFIG.JWT_SIGNING_KEY,
+          {expiresIn: APP_CONFIG.JWT_TOKEN_EXPIRATION_SECONDS}
         );
 
         // Send jsonwebtoken as response.
