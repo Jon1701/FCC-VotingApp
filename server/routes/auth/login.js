@@ -9,7 +9,7 @@ const jwt = require('jsonwebtoken');  // JSON Web Tokens
 ////////////////////////////////////////////////////////////////////////////////
 const hashedAuthentication = require('../../authentication/userLogin');  //Generates hashed credentials
 const appConfig = require('../../config/appConfig');           // Application variables
-const errorMessages = require('../../responseMessages/error'); // Error codes
+const RESPONSE = require('../../responseMessages/index');      // Error/Success responses.
 const dbConfig = require('../../config/dbConfig');             // Database information
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -30,14 +30,14 @@ const login = (req, res, next) => {
 
   // Check if username and password are provided.
   if (!username || !password) {
-    return next(errorMessages.LOGIN.NO_CREDENTIALS);
+    return next(RESPONSE.ERROR.LOGIN.MISSING_CREDENTIALS);
   }
 
   // Access the database.
   User.findOne({username: username}, (error, result) => {
 
     // Error check.
-    if (error) { return next(errorMessages.LOGIN.NO_DB_CONNECTION); }
+    if (error) { return next(RESPONSE.ERROR.DB.DB_ERROR); }
 
     // Check if a matching user was found.
     if (result) {
@@ -65,7 +65,6 @@ const login = (req, res, next) => {
 
         // Send jsonwebtoken as response.
         return res.json({
-          success: true,
           message: 'Token generated',
           token: token
         });
@@ -73,13 +72,13 @@ const login = (req, res, next) => {
       } else {
 
         // Passwords do not match, return an error.
-        return next(errorMessages.LOGIN.INVALID_CREDENTIALS);
+        return next(RESPONSE.ERROR.LOGIN.INVALID_CREDENTIALS);
       }
 
     } else {
 
       // No user found, just return an error stating invalid username or password.
-      return next(errorMessages.LOGIN.INVALID_CREDENTIALS);
+      return next(RESPONSE.ERROR.LOGIN.INVALID_CREDENTIALS);
     }
 
   });

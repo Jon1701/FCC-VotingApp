@@ -6,11 +6,10 @@ const mongoose = require('mongoose'); // MongoDB database driver.
 ////////////////////////////////////////////////////////////////////////////////
 // Externals
 ////////////////////////////////////////////////////////////////////////////////
-const dbConfig = require('../config/dbConfig');                       // Database information
-const errorMessages = require('../responseMessages/error');           // Error messages.
-const successMessages = require('../responseMessages/success')        // Success messages.
-const hashedAuthentication = require('../authentication/userLogin');  // Generates hashed credentials
+const dbConfig = require('../config/dbConfig');               // Database information
+const RESPONSE = require('../responseMessages/index');        // Error/Success responses.
 const regexRules = require('../regex/index');                         // Regular expressions.
+const hashedAuthentication = require('../authentication/userLogin');  // Generates hashed credentials
 
 ////////////////////////////////////////////////////////////////////////////////
 // Database
@@ -31,14 +30,14 @@ const signup = (req, res, next) => {
 
   // Check if username and password are provided.
   if (!username || !password) {
-    return next(errorMessages.SIGNUP.NO_CREDENTIALS);
+    return next(RESPONSE.ERROR.SIGNUP.MISSING_CREDENTIALS);
   }
 
   // Check to see if the username and password are valid.
   if (!regexRules.username.test(username)) {
-    return next(errorMessages.SIGNUP.INVALID_USERNAME);
+    return next(RESPONSE.ERROR.SIGNUP.INVALID_USERNAME);
   } else if (!regexRules.password.test(password)) {
-    return next(errorMessages.SIGNUP.INVALID_PASSWORD);
+    return next(RESPONSE.ERROR.SIGNUP.INVALID_PASSWORD);
   }
 
   // Search the collection by username.
@@ -46,7 +45,7 @@ const signup = (req, res, next) => {
 
     // Error checking.
     if (err) {
-      return next(errorMessages.SIGNUP.NO_DB_CONNECTION);
+      return next(RESPONSE.ERROR.DB.DB_ERROR);
     }
 
     // Check if the username has been found.
@@ -66,18 +65,18 @@ const signup = (req, res, next) => {
 
         // Error check.
         if (err) {
-          return next(errorMessages.SIGNUP.NO_DB_CONNECTION);
+          return next(RESPONSE.ERROR.DB.DB_ERROR);
         }
 
         // Return success message.
-        return res.send(successMessages.SIGNUP.USER_CREATED);
+        return res.send(RESPONSE.SUCCESS.SIGNUP.USER_CREATED);
 
       });
 
     } else {
 
       // User already exists. Return error message.
-      return next(errorMessages.SIGNUP.USER_EXISTS);
+      return next(RESPONSE.ERROR.SIGNUP.EXISTING_USER);
 
     }
 

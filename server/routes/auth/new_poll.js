@@ -9,8 +9,7 @@ const jwt = require('jsonwebtoken');  // JSON Web Tokens
 ////////////////////////////////////////////////////////////////////////////////
 const hashedAuthentication = require('../../authentication/userLogin');  //Generates hashed credentials
 const APP_CONFIG = require('../../config/appConfig');           // Application variables.
-const ERROR_RESPONSE = require('../../responseMessages/error'); // Error codes.
-const SUCCESS_RESPONSE = require('../../responseMessages/success'); // Success messages.
+const RESPONSE = require('../../responseMessages/index');      // Error/Success responses.
 const DB_CONFIG = require('../../config/dbConfig');             // Database information.
 const REGEX = require('../../regex/index');                     // Regular expressions.
 
@@ -32,13 +31,13 @@ const new_poll = (req, res, next) => {
 
     // Return error if title is not valid.
     if (!REGEX.POLL.TITLE_STRING.test(title)) {
-      return next(ERROR_RESPONSE.POLL.INVALID_TITLE);
+      return next(RESPONSE.ERROR.POLL.INVALID_TITLE);
     }
 
   } else {
 
     // No title provided, return error.
-    return next(ERROR_RESPONSE.POLL.NO_TITLE);
+    return next(RESPONSE.ERROR.POLL.NO_TITLE);
   }
 
   // Go through the request body, and keep track of keys which start with the
@@ -68,11 +67,11 @@ const new_poll = (req, res, next) => {
 
     // Return error if error occurred.
     if (err) {
-      return next(ERROR_RESPONSE.DB.DB_ERROR);
+      return next(RESPONSE.ERROR.DB.DB_ERROR);
     }
 
     // Return response message on success.
-    return res.send(SUCCESS_RESPONSE.POLL.CREATED);
+    return res.send(RESPONSE.SUCCESS.POLL.POLL_CREATED);
 
   });
 

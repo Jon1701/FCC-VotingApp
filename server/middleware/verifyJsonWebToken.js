@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');  // JSON web token.
 ////////////////////////////////////////////////////////////////////////////////
 // Constants
 ////////////////////////////////////////////////////////////////////////////////
-const ERROR_RESPONSE = require('../responseMessages/error');  // Error Responses.
+const RESPONSE = require('../responseMessages/index');        // Error/Success responses.
 const APP_CONFIG = require('../config/appConfig');  // Application configuration variables
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -28,7 +28,7 @@ const verifyJsonWebToken = (req, res, next) => {
       if (err) {
 
         // Token is invalid, return error as response.
-        return res.json(ERROR_RESPONSE.TOKEN.INVALID_TOKEN);
+        return res.json(RESPONSE.ERROR.TOKEN.INVALID_TOKEN);
 
       } else {
 
@@ -45,7 +45,7 @@ const verifyJsonWebToken = (req, res, next) => {
   } else {
 
     // No token provided, return error.
-    return res.json(ERROR_RESPONSE.TOKEN.NO_TOKEN);
+    return res.json(RESPONSE.ERROR.MISSING_TOKEN);
 
   }
 
