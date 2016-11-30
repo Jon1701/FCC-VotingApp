@@ -57,6 +57,12 @@ const create_poll = (req, res, next) => {
       // Remove duplicates.
       filteredChoices = Array.from(new Set(filteredChoices));
 
+      // Before creating the poll, do a final check to see if the number of filtered
+      // choices is between 2 and 10. If not, return an error.
+      if (!(choices.length >= 2 && choices.length <= 10)) {
+        return next(RESPONSE.ERROR.POLL.INSUFFICIENT_POLL_ANSWERS);
+      }
+
       // Create a new poll.
       const newPoll = Poll({
         username: req.decoded.username,
