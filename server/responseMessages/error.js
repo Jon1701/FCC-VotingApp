@@ -1,6 +1,6 @@
 const response = (code, message) => {
   return {
-    type: 'error',
+    type: 'ERROR',
     code: code,
     message: message
   }
@@ -24,6 +24,13 @@ const errorCodes = {
     NO_TOKEN: response('NO_TOKEN', 'No token provided. Token is required for access'),
     INVALID_TOKEN: response('INVALID_TOKEN', 'Token is invalid. Try and log in again.'),
     EXPIRED_TOKEN: response('EXPIRED_TOKEN', 'Token has expired. Try and log in again.'),
+  },
+  POLL: {
+    INVALID_TITLE: response('INVALID_TITLE', 'Invalid title.'),
+    NO_TITLE: response('NO_TITLE', 'Title is required')
+  },
+  DB: {
+    DB_ERROR: response('DB_ERROR', 'Database error occurred.')
   }
 }
 

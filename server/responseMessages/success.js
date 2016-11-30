@@ -1,6 +1,6 @@
 const response = (code, message) => {
   return {
-    type: 'success',
+    type: 'SUCCESS',
     code: code,
     message: message
   }
@@ -9,6 +9,9 @@ const response = (code, message) => {
 const successCodes = {
   SIGNUP: {
     USER_CREATED: response('USER_CREATED', 'User successfully created.')
+  },
+  POLL: {
+    CREATED: response('POLL_CREATED', 'Poll successfully created.')
   }
 
 }
