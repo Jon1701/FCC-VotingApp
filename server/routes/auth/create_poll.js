@@ -8,17 +8,18 @@ const jwt = require('jsonwebtoken');  // JSON Web Tokens
 // Externals
 ////////////////////////////////////////////////////////////////////////////////
 const hashedAuthentication = require('../../authentication/userLogin');  //Generates hashed credentials
-const APP_CONFIG = require('../../config/appConfig');           // Application variables.
-const RESPONSE = require('../../responseMessages/index');      // Error/Success responses.
-const DB_CONFIG = require('../../config/dbConfig');             // Database information.
-const REGEX = require('../../regex/index');                     // Regular expressions.
+const APP_CONFIG = require('../../config/appConfig');     // Application variables.
+const RESPONSE = require('../../responseMessages/index'); // Error/Success responses.
+const DB_CONFIG = require('../../config/dbConfig');       // Database information.
+const REGEX = require('../../regex/index');               // Regular expressions.
 
 ////////////////////////////////////////////////////////////////////////////////
 // Database
 ////////////////////////////////////////////////////////////////////////////////
 mongoose.createConnection(DB_CONFIG['CONN_STRING']);  // Connect to the database.
 
-const Poll = require('../../models/Poll'); // Database model for a Poll.
+// Database model for a Poll.
+const Poll = require('../../models/Poll');
 
 ////////////////////////////////////////////////////////////////////////////////
 // Route definition
@@ -63,15 +64,15 @@ const create_poll = (req, res, next) => {
   });
 
   // Save the poll in the database.
-  newPoll.save((err) => {
+  newPoll.save((err, result) => {
 
     // Return error if error occurred.
     if (err) {
       return next(RESPONSE.ERROR.DB.DB_ERROR);
     }
 
-    // Return response message on success.
-    return res.send(RESPONSE.SUCCESS.POLL.POLL_CREATED);
+    // Return response message on success, include the _id field in the response.
+    return res.send(Object.assign({}, RESPONSE.SUCCESS.POLL.POLL_CREATED, {'poll_id': result._id}));
 
   });
 
