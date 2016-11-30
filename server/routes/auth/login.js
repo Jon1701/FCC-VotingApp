@@ -60,7 +60,7 @@ const login = (req, res, next) => {
         const token = jwt.sign(
           {username: username},
           appConfig.JWT_SIGNING_KEY,
-          {expiresIn: appConfig.JWT_TOKEN_EXPIRATION_MINUTES}
+          {expiresIn: appConfig.JWT_TOKEN_EXPIRATION_SECONDS}
         );
 
         // Send jsonwebtoken as response.
