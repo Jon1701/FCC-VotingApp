@@ -41,40 +41,56 @@ const create_poll = (req, res, next) => {
     return next(RESPONSE.ERROR.POLL.NO_TITLE);
   }
 
-  // Go through the request body, and keep track of keys which start with the
-  // word 'option', and end with a number.
-  let choices = Object.keys(req.body).filter((key, idx, arr) => {
-    return REGEX.POLL.OPTION_REQ_HEADER.test(key);
-  });
+  // Go through the request body and get the number of poll choices.
+  const choices = req.body.choices;
+  if (choices instanceof Array) {
 
-  // choices array contains strings 'option1', 'option2', etc. Fill the array
-  // with actual values from req.body, and trim leading/trailing whitespace.
-  choices = choices.map((key, idx, arr) => {
-    return req.body[key].trim();
-  });
+    // Check to see if at least 2 poll choices have been provided, to a maximum of 10.
+    if (choices.length >= 2 && choices.length <= 10) {
 
-  // Convert choices to a Set, and then back into an array to remove duplicates.
-  choices = Array.from(new Set(choices));
+      // Remove leading and trailing whitespace for each choice.
+      let filteredChoices = choices.map((val) => { return val.trim(); });
 
-  // Create a new poll.
-  const newPoll = Poll({
-    username: req.decoded.username,
-    title: title,
-    choices: choices
-  });
+      // Remove choices which are not between 1 and 50 characters in length.
+      filteredChoices = filteredChoices.filter((val, idx, arr) => { return REGEX.POLL.CHOICE_STRING.test(val); });
 
-  // Save the poll in the database.
-  newPoll.save((err, result) => {
+      // Remove duplicates.
+      filteredChoices = Array.from(new Set(filteredChoices));
 
-    // Return error if error occurred.
-    if (err) {
-      return next(RESPONSE.ERROR.DB.DB_ERROR);
+      // Create a new poll.
+      const newPoll = Poll({
+        username: req.decoded.username,
+        title: title,
+        choices: filteredChoices
+      });
+
+      // Save the poll in the database.
+      newPoll.save((err, result) => {
+
+        // Return error if error occurred.
+        if (err) {
+          return next(RESPONSE.ERROR.DB.DB_ERROR);
+        }
+
+        // Return response message on success, include the _id field in the response.
+        return res.send(Object.assign({}, RESPONSE.SUCCESS.POLL.POLL_CREATED, {'poll_id': result._id}));
+
+      });
+
+    } else {
+
+      // Not an array, or fewer than 2 choices provided. Return error.
+      return next(RESPONSE.ERROR.POLL.INSUFFICIENT_POLL_ANSWERS);
+
     }
 
-    // Return response message on success, include the _id field in the response.
-    return res.send(Object.assign({}, RESPONSE.SUCCESS.POLL.POLL_CREATED, {'poll_id': result._id}));
+  } else {
 
-  });
+    // No poll choices have been provided, or fewer that 2 have been provided.
+    // Return an error.
+    return next(RESPONSE.ERROR.POLL.INSUFFICIENT_POLL_ANSWERS);
+
+  }
 
 }
 
