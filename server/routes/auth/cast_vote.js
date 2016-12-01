@@ -18,14 +18,96 @@ const REGEX = require('../../regex/index');               // Regular expressions
 ////////////////////////////////////////////////////////////////////////////////
 mongoose.createConnection(DB_CONFIG['CONN_STRING']);  // Connect to the database.
 
-// Database model for a Poll.
-//const Poll = require('../../models/Poll');
+// Models.
+const Poll = require('../../models/Poll');  // Database model for a Poll.
+const Vote = require('../../models/Vote');  // Database model for a Vote.
 
 ////////////////////////////////////////////////////////////////////////////////
 // Route definition
 ////////////////////////////////////////////////////////////////////////////////
 const cast_vote = (req, res, next) => {
-  return res.json('endpoint /auth/cast_vote');
+
+  // Get username.
+  const username = req.decoded.username;
+
+  // Get poll id.
+  const pollId = req.body.poll_id;
+
+  // Get the poll choice from the user.
+  const userChoice = req.body.choice;
+
+  // Get poll choice, and do some error checking to see if it was given,
+  if (userChoice) {
+
+    // Return an error if more than one choice was provided.
+    if (typeof(userChoice) != 'string') { return next(RESPONSE.ERROR.CAST_VOTE.ONE_CHOICE_ONLY); }
+
+  } else {
+
+    // No choice was sent, return an error.
+    return next(RESPONSE.ERROR.CAST_VOTE.MISSING_CHOICE);
+
+  }
+
+  // Using the given poll id, search for that poll.
+  Poll.findOne({_id: pollId}, (err, result) => {
+
+    // Return error if one occurred.
+    if (err) { return next(RESPONSE.ERROR.DB.DB_ERROR); };
+
+    // Check to see if a poll was returned.
+    if (result) {
+
+      // A poll was found, check to see if the user's choice is on the poll.
+      if (result.choices.indexOf(userChoice) >= 0) {
+
+        // The user's choice is valid.
+        // Need to check if user has already voted for this poll.
+        Vote.findOne({username: username, poll_id: pollId}, (err, result) => {
+
+          // Return error if one occurred.
+          if (err) { return next(RESPONSE.ERROR.DB.DB_ERROR); };
+
+          // If the user has already voted on the poll, return an error.
+          if (result) { return next(RESPONSE.ERROR.CAST_VOTE.ALREADY_VOTED); };
+
+          // User has not voted, create a Vote document.
+          const newVote = Vote({
+            username: username,
+            poll_id: pollId,
+            choice: userChoice
+          });
+
+          // Store the Vote in the database.
+          newVote.save((err, result) => {
+
+            // If an error occurred, return an error.
+            if (err) { return next(RESPONSE.ERROR.DB.DB_ERROR); };
+
+            // Return response message on success, include the _id field in the response.
+            return res.send(Object.assign({}, RESPONSE.SUCCESS.POLL.POLL_CREATED, {'vote_id': result._id, 'poll_id': result.poll_id}));
+
+          });
+        });
+
+      } else {
+
+        // The user's choice is not on the poll, thus invalid. Return an error.
+        return next(RESPONSE.ERROR.CAST_VOTE.INVALID_CHOICE);
+
+      }
+
+    } else {
+
+      // No poll was found, return error.
+      return next(RESPONSE.ERROR.POLL.NO_POLL_FOUND);
+
+    }
+
+    //return res.json('endpoint /auth/cast_vote');
+  });
+
+
 }
 
 // Export route definition.
