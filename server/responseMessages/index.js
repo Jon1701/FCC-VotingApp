@@ -36,6 +36,9 @@ const errorResponses = {
       ONE_CHOICE_ONLY: response('ONE_CHOICE_ONLY', 'Only one answer is allowed.'),
       INVALID_CHOICE: response('INVALID_CHOICE', 'Answer is invalid as it is not on the poll.'),
       ALREADY_VOTED: response('ALREADY_VOTED', 'User has already voted for this poll.')
+    },
+    VIEW_POLL: {
+      INVALID_POLL_ID: response('INVALID_POLL_ID', 'Invalid Poll ID')
     }
 }
 
