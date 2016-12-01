@@ -1,8 +1,39 @@
+////////////////////////////////////////////////////////////////////////////////
+// Module dependencies
+////////////////////////////////////////////////////////////////////////////////
+const mongoose = require('mongoose'); // MongoDB database driver.
+
+////////////////////////////////////////////////////////////////////////////////
+// Externals
+////////////////////////////////////////////////////////////////////////////////
+const DB_CONFIG = require('../../config/dbConfig');               // Database information
+const RESPONSE = require('../../responseMessages/index');        // Error/Success responses.
+const REGEX = require('../../regex/index');                         // Regular expressions.
+
+////////////////////////////////////////////////////////////////////////////////
+// Database
+////////////////////////////////////////////////////////////////////////////////
+mongoose.createConnection(DB_CONFIG['CONN_STRING']);  // Connect to the database.
+
+////////////////////////////////////////////////////////////////////////////////
+// Route definition
+////////////////////////////////////////////////////////////////////////////////
 const poll = (req, res, next) => {
 
-  console.log(req.params)
+  // Check to see if the poll_id URL parameter is a valid ObjectId.
+  if (mongoose.Types.ObjectId.isValid(req.params.poll_id)) {
+    return res.send('valid objectid')
+  } else {
+
+    // Invalid poll ID, return an error.
+    return next(RESPONSE.ERROR.VIEW_POLL.INVALID_POLL_ID);
+
+  }
+
+  console.log(mongoose.Types.ObjectId.isValid)
 
   return res.json('Reached endpoint /view/poll/:poll_id')
 }
 
+// Export route definition.
 module.exports = poll;
