@@ -25,10 +25,17 @@ const errorResponses = {
       INVALID_TITLE: response('INVALID_TITLE', 'Poll title must be between 8 and 1000 characters long.'),
       INVALID_CHOICE: response('INVALID_CHOICE', 'Poll answers must be between 1 and 50 characters long.'),
       NO_TITLE: response('NO_TITLE', 'Poll title is required.'),
-      INSUFFICIENT_POLL_ANSWERS: response('INSUFFICIENT_POLL_ANSWERS', 'At least two Poll answers must be provided, to a maximum of 10.')
+      INSUFFICIENT_POLL_ANSWERS: response('INSUFFICIENT_POLL_ANSWERS', 'At least two Poll answers must be provided, to a maximum of 10.'),
+      NO_POLL_FOUND: response('NO_POLL_FOUND', 'No poll with given Poll ID could be found.')
     },
     DB: {
       DB_ERROR: response('DB_ERROR', 'Server error. Unable to connect to the database'),
+    },
+    CAST_VOTE: {
+      MISSING_CHOICE: response('MISSING_CHOICE', 'An answer is needed to cast a vote.'),
+      ONE_CHOICE_ONLY: response('ONE_CHOICE_ONLY', 'Only one answer is allowed.'),
+      INVALID_CHOICE: response('INVALID_CHOICE', 'Answer is invalid as it is not on the poll.'),
+      ALREADY_VOTED: response('ALREADY_VOTED', 'User has already voted for this poll.')
     }
 }
 
@@ -38,6 +45,9 @@ const successResponses = {
   },
   POLL: {
     POLL_CREATED: response('POLL_CREATED', 'Poll successfully created.')
+  },
+  CAST_VOTE: {
+    VOTE_SUCCESSFUL: response('VOTE_SUCCESSFUL', 'User has voted for this poll.')
   }
 }
 
