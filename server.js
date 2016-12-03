@@ -19,23 +19,27 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 ////////////////////////////////////////////////////////////////////////////////
-// User signup.
+// Routers
 ////////////////////////////////////////////////////////////////////////////////
 const apiRoutes = express.Router();
-app.use('/api', apiRoutes);
+const authRoutes = express.Router();
 
+app.use('/api', apiRoutes);
+app.use('/api/auth', authRoutes);
+
+////////////////////////////////////////////////////////////////////////////////
+// Unauthenticated routes: /api
+////////////////////////////////////////////////////////////////////////////////
+
+// User signup
 apiRoutes.post('/signup', require('./server/routes/signup'));
 
-// View poll.
+// View poll
 apiRoutes.get('/view/poll/:poll_id', require('./server/routes/view/poll'));
 
 ////////////////////////////////////////////////////////////////////////////////
-// Protected routes
+// Authenticated routes: /api/auth
 ////////////////////////////////////////////////////////////////////////////////
-
-// Apply the routes within authRoutes with the prefix /auth.
-const authRoutes = express.Router();
-app.use('/api/auth', authRoutes);
 
 // User login.
 authRoutes.post('/login', require('./server/routes/auth/login'));
@@ -46,7 +50,7 @@ authRoutes.use(verifyJwt);
 // Base endpoint for the /auth router.
 authRoutes.get('/', require('./server/routes/auth/index'));
 
-// Endpoint to create new poll.
+// Create new poll.
 authRoutes.post('/create_poll', require('./server/routes/auth/create_poll'));
 
 // Endpoint to cast a vote.
