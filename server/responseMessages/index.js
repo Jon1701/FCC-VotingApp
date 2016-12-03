@@ -38,7 +38,8 @@ const errorResponses = {
       ALREADY_VOTED: response('ALREADY_VOTED', 'User has already voted for this poll.')
     },
     VIEW_POLL: {
-      INVALID_POLL_ID: response('INVALID_POLL_ID', 'Invalid Poll ID')
+      INVALID_POLL_ID: response('INVALID_POLL_ID', 'Invalid Poll ID'),
+      NO_POLL_FOUND: response('NO_POLL_FOUND', 'No poll found.')
     }
 }
 
