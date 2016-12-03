@@ -33,29 +33,29 @@ app.use('/api/auth', authRoutes);
 ////////////////////////////////////////////////////////////////////////////////
 
 // User signup
-apiRoutes.post('/signup', rfr('/server/routes/signup'));
+apiRoutes.post('/signup', rfr('/server/routes/api/signup'));
 
 // View poll
-apiRoutes.get('/view/poll/:poll_id', rfr('/server/routes/view/poll'));
+apiRoutes.get('/view/poll/:poll_id', rfr('/server/routes/api/view/poll'));
 
 ////////////////////////////////////////////////////////////////////////////////
 // Authenticated routes: /api/auth
 ////////////////////////////////////////////////////////////////////////////////
 
 // User login.
-authRoutes.post('/login', rfr('/server/routes/auth/login'));
+authRoutes.post('/login', rfr('/server/routes/api/auth/login'));
 
 // Middleware to verify JSON Web Tokens.
 authRoutes.use(verifyJwt);
 
 // Base endpoint for the /auth router.
-authRoutes.get('/', rfr('/server/routes/auth/index'));
+authRoutes.get('/', rfr('/server/routes/api/auth/index'));
 
 // Create new poll.
-authRoutes.post('/create_poll', rfr('/server/routes/auth/create_poll'));
+authRoutes.post('/create_poll', rfr('/server/routes/api/auth/create_poll'));
 
 // Endpoint to cast a vote.
-authRoutes.post('/cast_vote', rfr('/server/routes/auth/cast_vote'));
+authRoutes.post('/cast_vote', rfr('/server/routes/api/auth/cast_vote'));
 
 ////////////////////////////////////////////////////////////////////////////////
 // Serve files from the ./dist folder.
