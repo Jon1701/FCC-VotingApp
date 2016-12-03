@@ -1,8 +1,9 @@
-// Log requests to console.
-const morgan = require('morgan');
-
-// Middleware.
-const verifyJwt = require('./server/middleware/verifyJsonWebToken');
+////////////////////////////////////////////////////////////////////////////////
+// Dependencies
+////////////////////////////////////////////////////////////////////////////////
+const rfr = require('rfr');       // Root relative paths.
+const morgan = require('morgan'); // Log requests to console.
+const verifyJwt = rfr('/server/middleware/verifyJsonWebToken'); // Authentication middleware.
 
 ////////////////////////////////////////////////////////////////////////////////
 // Express
@@ -32,29 +33,29 @@ app.use('/api/auth', authRoutes);
 ////////////////////////////////////////////////////////////////////////////////
 
 // User signup
-apiRoutes.post('/signup', require('./server/routes/signup'));
+apiRoutes.post('/signup', rfr('/server/routes/signup'));
 
 // View poll
-apiRoutes.get('/view/poll/:poll_id', require('./server/routes/view/poll'));
+apiRoutes.get('/view/poll/:poll_id', rfr('/server/routes/view/poll'));
 
 ////////////////////////////////////////////////////////////////////////////////
 // Authenticated routes: /api/auth
 ////////////////////////////////////////////////////////////////////////////////
 
 // User login.
-authRoutes.post('/login', require('./server/routes/auth/login'));
+authRoutes.post('/login', rfr('/server/routes/auth/login'));
 
 // Middleware to verify JSON Web Tokens.
 authRoutes.use(verifyJwt);
 
 // Base endpoint for the /auth router.
-authRoutes.get('/', require('./server/routes/auth/index'));
+authRoutes.get('/', rfr('/server/routes/auth/index'));
 
 // Create new poll.
-authRoutes.post('/create_poll', require('./server/routes/auth/create_poll'));
+authRoutes.post('/create_poll', rfr('/server/routes/auth/create_poll'));
 
 // Endpoint to cast a vote.
-authRoutes.post('/cast_vote', require('./server/routes/auth/cast_vote'));
+authRoutes.post('/cast_vote', rfr('/server/routes/auth/cast_vote'));
 
 ////////////////////////////////////////////////////////////////////////////////
 // Serve files from the ./dist folder.
