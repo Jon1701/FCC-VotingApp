@@ -21,10 +21,13 @@ app.use(bodyParser.json());
 ////////////////////////////////////////////////////////////////////////////////
 // User signup.
 ////////////////////////////////////////////////////////////////////////////////
-app.post('/signup', require('./server/routes/signup'));
+const apiRoutes = express.Router();
+app.use('/api', apiRoutes);
+
+apiRoutes.post('/signup', require('./server/routes/signup'));
 
 // View poll.
-app.get('/view/poll/:poll_id', require('./server/routes/view/poll'));
+apiRoutes.get('/view/poll/:poll_id', require('./server/routes/view/poll'));
 
 ////////////////////////////////////////////////////////////////////////////////
 // Protected routes
@@ -32,7 +35,7 @@ app.get('/view/poll/:poll_id', require('./server/routes/view/poll'));
 
 // Apply the routes within authRoutes with the prefix /auth.
 const authRoutes = express.Router();
-app.use('/auth', authRoutes);
+app.use('/api/auth', authRoutes);
 
 // User login.
 authRoutes.post('/login', require('./server/routes/auth/login'));
