@@ -22,10 +22,6 @@ mongoose.createConnection(DB_CONFIG['CONN_STRING']);  // Connect to the database
 const Poll = rfr('/server/models/Poll.js'); // Poll
 const Vote = rfr('/server/models/Vote.js'); // Vote
 
-const generateAggregatedResults = () => {
-
-}
-
 ////////////////////////////////////////////////////////////////////////////////
 // Route definition
 ////////////////////////////////////////////////////////////////////////////////
@@ -101,7 +97,6 @@ const poll = (req, res, next) => {
           return res.send(Object.assign({}, RESPONSE.SUCCESS.VIEW_POLL.VIEW_RESULTS, {results: newResult}));
 
         }
-
 
       });
 
