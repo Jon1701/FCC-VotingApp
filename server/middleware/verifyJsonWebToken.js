@@ -2,12 +2,13 @@
 // Modules
 ////////////////////////////////////////////////////////////////////////////////
 const jwt = require('jsonwebtoken');  // JSON web token.
+const rfr = require('rfr');           // Root relative paths.
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constants
 ////////////////////////////////////////////////////////////////////////////////
-const RESPONSE = require('../responseMessages/index');        // Error/Success responses.
-const APP_CONFIG = require('../config/appConfig');  // Application configuration variables
+const RESPONSE = rfr('/server/responseMessages/index');        // Error/Success responses.
+const APP_CONFIG = rfr('/server/config/appConfig');  // Application configuration variables
 
 ////////////////////////////////////////////////////////////////////////////////
 // Middleware definition

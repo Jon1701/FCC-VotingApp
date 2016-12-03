@@ -1,3 +1,6 @@
+// Root relative paths.
+const rfr = require('rfr');
+
 ////////////////////////////////////////////////////////////////////////////////
 // Module dependencies
 ////////////////////////////////////////////////////////////////////////////////
@@ -6,9 +9,9 @@ const mongoose = require('mongoose'); // MongoDB database driver.
 ////////////////////////////////////////////////////////////////////////////////
 // Externals
 ////////////////////////////////////////////////////////////////////////////////
-const DB_CONFIG = require('../../config/dbConfig');               // Database information
-const RESPONSE = require('../../responseMessages/index');        // Error/Success responses.
-const REGEX = require('../../regex/index');                         // Regular expressions.
+const DB_CONFIG = rfr('/server/config/dbConfig');       // Database information
+const RESPONSE = rfr('/server/responseMessages/index'); // Error/Success responses.
+const REGEX = rfr('/server/regex/index');               // Regular expressions.
 
 ////////////////////////////////////////////////////////////////////////////////
 // Database
@@ -16,8 +19,8 @@ const REGEX = require('../../regex/index');                         // Regular e
 mongoose.createConnection(DB_CONFIG['CONN_STRING']);  // Connect to the database.
 
 // Models.
-const Poll = require('../../models/Poll.js'); // Poll
-const Vote = require('../../models/Vote.js'); // Vote
+const Poll = rfr('/server/models/Poll.js'); // Poll
+const Vote = rfr('/server/models/Vote.js'); // Vote
 
 const generateAggregatedResults = () => {
 

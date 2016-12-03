@@ -3,15 +3,16 @@
 ////////////////////////////////////////////////////////////////////////////////
 const mongoose = require('mongoose'); // MongoDB database driver.
 const jwt = require('jsonwebtoken');  // JSON Web Tokens
+const rfr = require('rfr');           // Root relative paths.
 
 ////////////////////////////////////////////////////////////////////////////////
 // Externals
 ////////////////////////////////////////////////////////////////////////////////
-const hashedAuthentication = require('../../authentication/userLogin');  //Generates hashed credentials
-const APP_CONFIG = require('../../config/appConfig');     // Application variables.
-const RESPONSE = require('../../responseMessages/index'); // Error/Success responses.
-const DB_CONFIG = require('../../config/dbConfig');       // Database information.
-const REGEX = require('../../regex/index');               // Regular expressions.
+const hashedAuthentication = rfr('/server/authentication/userLogin');  //Generates hashed credentials
+const APP_CONFIG = rfr('/server/config/appConfig');     // Application variables.
+const RESPONSE = rfr('/server/responseMessages/index'); // Error/Success responses.
+const DB_CONFIG = rfr('/server/config/dbConfig');       // Database information.
+const REGEX = rfr('/server/regex/index');               // Regular expressions.
 
 ////////////////////////////////////////////////////////////////////////////////
 // Database
@@ -19,7 +20,7 @@ const REGEX = require('../../regex/index');               // Regular expressions
 mongoose.createConnection(DB_CONFIG['CONN_STRING']);  // Connect to the database.
 
 // Database model for a Poll.
-const Poll = require('../../models/Poll');
+const Poll = rfr('/server/models/Poll');  // Database model for a Poll.
 
 ////////////////////////////////////////////////////////////////////////////////
 // Route definition

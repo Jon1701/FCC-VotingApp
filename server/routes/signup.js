@@ -2,14 +2,15 @@
 // Module dependencies
 ////////////////////////////////////////////////////////////////////////////////
 const mongoose = require('mongoose'); // MongoDB database driver.
+const rfr = require('rfr');           // Root relative paths.
 
 ////////////////////////////////////////////////////////////////////////////////
 // Externals
 ////////////////////////////////////////////////////////////////////////////////
-const DB_CONFIG = require('../config/dbConfig');               // Database information
-const RESPONSE = require('../responseMessages/index');        // Error/Success responses.
-const REGEX = require('../regex/index');                         // Regular expressions.
-const hashedAuthentication = require('../authentication/userLogin');  // Generates hashed credentials
+const DB_CONFIG = rfr('/server/config/dbConfig');       // Database information
+const RESPONSE = rfr('/server/responseMessages/index'); // Error/Success responses.
+const REGEX = rfr('/server/regex/index');               // Regular expressions.
+const hashedAuthentication = rfr('/server/authentication/userLogin');  //Generates hashed credentials
 
 ////////////////////////////////////////////////////////////////////////////////
 // Database
@@ -17,7 +18,7 @@ const hashedAuthentication = require('../authentication/userLogin');  // Generat
 mongoose.Promise = global.Promise;
 mongoose.connect(DB_CONFIG['CONN_STRING']); // Connect to the database.
 
-const User = require('../models/User'); // User model.
+const User = rfr('/server/models/User'); // Database model for a User.
 
 ////////////////////////////////////////////////////////////////////////////////
 // Route definition
