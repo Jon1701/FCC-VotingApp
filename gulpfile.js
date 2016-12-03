@@ -4,7 +4,7 @@ var webpack = require('webpack-stream');
 // Uses webpack for module bundling.
 const config = require('./webpack.config.js');
 gulp.task('bundle', () => {
-  return gulp.src('./src/index.js')
+  return gulp.src('./ui/index.js')
     .pipe(webpack(config))
     .pipe(gulp.dest('./dist/'))
 });
