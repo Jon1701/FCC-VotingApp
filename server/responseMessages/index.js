@@ -52,6 +52,9 @@ const successResponses = {
   },
   CAST_VOTE: {
     VOTE_SUCCESSFUL: response('VOTE_SUCCESSFUL', 'User has voted for this poll.')
+  },
+  VIEW_POLL: {
+    VIEW_RESULTS: response('VIEW_RESULTS', 'Results tallied.')
   }
 }
 
