@@ -1,0 +1,7 @@
+Container components go into this folder.
+
+Can be accessed within a React Component by:
+
+require('containers/filename');
+
+since containers/ is an alias to a root path defined in webpack.config.js.

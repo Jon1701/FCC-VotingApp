@@ -1,0 +1,7 @@
+Components go into this folder.
+
+Can be accessed within a React Component by:
+
+require('components/filename');
+
+since components/ is an alias to a root path defined in webpack.config.js.
