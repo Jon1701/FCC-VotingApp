@@ -46,6 +46,7 @@ var config = {
       // Instead of import HelloWorld from './components/HelloWorld.jsx'
       // Use:       import HelloWorld from 'components/HelloWorld.jsx'
       'components': path.join(PATHS.SRC, 'components/'),
+      'containers': path.join(PATHS.SRC, 'containers/'),
       'stylesheets': path.join(PATHS.SRC, 'stylesheets/'),
       'json': path.join(PATHS.SRC, 'media/data/'),
       'images': path.join(PATHS.SRC, 'media/images/'),
