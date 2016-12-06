@@ -106,12 +106,12 @@ class SignupPage extends React.Component {
 
               <label className="label">Username</label>
               <p className="control">
-                <input className="input" ref="usernameField" type="text" defaultValue="username11"/>
+                <input className="input" ref="usernameField" type="text"/>
               </p>
 
               <label className="label">Password</label>
               <p className="control">
-                <input className="input" ref="passwordField" type="password" defaultValue="password"/>
+                <input className="input" ref="passwordField" type="password"/>
               </p>
 
               <p class="control">

@@ -116,7 +116,7 @@ class LoginPage extends React.Component {
 
               <label className="label">Username</label>
               <p className="control">
-                <input className="input" ref="usernameField" type="text" defaultValue="username11"/>
+                <input className="input" ref="usernameField" type="text" defaultValue="username1"/>
               </p>
 
               <label className="label">Password</label>
