@@ -4,6 +4,9 @@ import React from 'react';
 // Components.
 import NavBar from 'components/NavBar';
 
+// Containers.
+import LoginPage from 'containers/LoginPage';
+
 // Component definition.
 export default class UserInterface extends React.Component {
 
@@ -16,9 +19,8 @@ export default class UserInterface extends React.Component {
   render() {
     return (
       <div>
-        User Interface
-
         <NavBar/>
+        <LoginPage/>
       </div>
     )
   }
