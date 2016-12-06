@@ -22,8 +22,8 @@ export default class UserInterface extends React.Component {
     return (
       <div>
         <NavBar/>
-        <SignupPage/>
         <LoginPage/>
+        <SignupPage/>        
       </div>
     )
   }
