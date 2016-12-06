@@ -5,11 +5,11 @@ const jwt = (state=null, action) => {
 
     // Store JSON web token in state.
     case 'SET_JSON_WEB_TOKEN':
-      return Object.assign({}, state, action.payload);
+      return action.payload;
 
     // Clear JSON web token from state.
     case 'CLEAR_JSON_WEB_TOKEN':
-      return Object.assign({}, state, null);
+      return null;
 
   }
 
