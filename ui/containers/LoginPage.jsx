@@ -94,9 +94,10 @@ class LoginPage extends React.Component {
 
           <h1 className="title">Sign in to create and vote in polls!</h1>
 
-          <ErrorBox message={this.state.errorMessage}/>
-
           <div className="box">
+
+            <ErrorBox message={this.state.errorMessage}/>
+
             <form onSubmit={this.handleSubmit}>
 
               <label className="label">Username</label>
