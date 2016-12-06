@@ -4,7 +4,7 @@
 import React from 'react';
 
 // Components.
-import ErrorBox from 'components/ErrorBox';
+import AlertBox from 'components/AlertBox';
 
 ////////////////////////////////////////////////////////////////////////////////
 // Redux
@@ -22,7 +22,6 @@ import { storeToken } from 'actions/index';
 // External libraries.
 import axios from 'axios';  // AJAX Request library.
 
-
 ////////////////////////////////////////////////////////////////////////////////
 // Component definition
 ////////////////////////////////////////////////////////////////////////////////
@@ -34,7 +33,8 @@ class LoginPage extends React.Component {
 
     // Local state.
     this.state = {
-      errorMessage: null  // Store error message.
+      message: null,  // Store error message.
+      messageBoxType: null
     }
 
     // Bind form submission handler to component instance.
@@ -68,6 +68,19 @@ class LoginPage extends React.Component {
 
     }).then((res) => {
 
+      // Hide error box.
+      this.setState({
+        message: null,
+        messageBoxType: null
+      });
+
+      // Clear form values.
+      this.refs.usernameField.value = '';
+      this.refs.passwordField.value = '';
+
+      // Re-enable submit button.
+      this.refs.submitButton.disabled = false;
+
       // Store token in state.
       this.props.storeToken(res.data.token);
 
@@ -78,7 +91,8 @@ class LoginPage extends React.Component {
 
       // Store error message into state.
       this.setState({
-        errorMessage: err.response.data.message
+        message: err.response.data.message,
+        messageBoxType: 'DANGER'
       });
 
     })
@@ -96,7 +110,7 @@ class LoginPage extends React.Component {
 
           <div className="box">
 
-            <ErrorBox message={this.state.errorMessage}/>
+            <AlertBox message={this.state.message} boxType={this.state.messageBoxType}/>
 
             <form onSubmit={this.handleSubmit}>
 
