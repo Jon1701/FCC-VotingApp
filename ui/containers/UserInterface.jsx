@@ -6,6 +6,8 @@ import NavBar from 'components/NavBar';
 
 // Containers.
 import LoginPage from 'containers/LoginPage';
+import SignupPage from 'containers/SignupPage';
+
 
 // Component definition.
 export default class UserInterface extends React.Component {
@@ -20,6 +22,7 @@ export default class UserInterface extends React.Component {
     return (
       <div>
         <NavBar/>
+        <SignupPage/>
         <LoginPage/>
       </div>
     )
