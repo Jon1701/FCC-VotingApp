@@ -2,7 +2,7 @@
 export const setJwt = (jwt) => {
   return {
     type: 'SET_JSON_WEB_TOKEN',
-    payload: kwt
+    payload: jwt
   }
 }
 
