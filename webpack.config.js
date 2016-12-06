@@ -45,6 +45,7 @@ var config = {
       // Can easily access React components in the ./src/components directory.
       // Instead of import HelloWorld from './components/HelloWorld.jsx'
       // Use:       import HelloWorld from 'components/HelloWorld.jsx'
+      'actions': path.join(PATHS.SRC, 'actions/'),
       'reducers': path.join(PATHS.SRC, 'reducers/'),
       'components': path.join(PATHS.SRC, 'components/'),
       'containers': path.join(PATHS.SRC, 'containers/'),
