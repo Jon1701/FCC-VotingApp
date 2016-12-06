@@ -25,6 +25,9 @@ class LoginPage extends React.Component {
   // Handle form submission.
   handleSubmit(e) {
 
+    // Prevent default form submit action.
+    e.preventDefault();
+
     // Disable the submit button.
     this.refs.submitButton.disabled = true;
 
