@@ -2,10 +2,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-// React Components.
-import HelloWorld from 'components/HelloWorld.jsx';
+// React container.
+import UserInterface from 'containers/UserInterface.jsx';
 
 // Add stylesheets.
 require("stylesheets/stylesheet.scss");
 
-ReactDOM.render(<HelloWorld/>, document.getElementById('react-target'));
+ReactDOM.render(<UserInterface/>, document.getElementById('react-target'));
