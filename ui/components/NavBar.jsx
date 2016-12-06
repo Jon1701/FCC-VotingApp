@@ -13,7 +13,22 @@ export default class NavBar extends React.Component {
   render() {
     return (
       <div>
-        NavBar
+
+        <nav className="nav">
+          <div className="nav-left">
+            <a className="nav-item is-brand" href="#">
+              FCC Voting App
+            </a>
+          </div>
+
+          <div className="nav-center">
+            <a className="nav-item" href="#">
+              Login
+            </a>
+          </div>
+
+        </nav>
+
       </div>
     )
   }
