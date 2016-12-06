@@ -6,7 +6,7 @@ import jwtReducer from './reducer_jwt';
 
 // Combine all reducers into one state object.
 const reducers = combineReducers({
-  jwt: jwtReducer
+  token: jwtReducer
 });
 
 // Export the global state.

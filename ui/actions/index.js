@@ -1,14 +1,14 @@
 // Action to set Json web tokens.
-export const setJwt = (jwt) => {
+export const storeToken = (jwt) => {
   return {
-    type: 'SET_JSON_WEB_TOKEN',
+    type: 'STORE_TOKEN',
     payload: jwt
   }
 }
 
 // Action to clear Json web tokens.
-export const clearJwt = () => {
+export const removeToken = () => {
   return {
-    type: 'CLEAR_JSON_WEB_TOKEN'
+    type: 'REMOVE_TOKEN'
   }
 }

@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 // Actions.
-import { setJwt } from 'actions/index';
+import { storeToken } from 'actions/index';
 
 // Component definition.
 class LoginPage extends React.Component {
@@ -43,7 +43,7 @@ class LoginPage extends React.Component {
     }).then((res) => {
 
       // Store token in state.
-      this.props.setJwt(res.data.token);
+      this.props.storeToken(res.data.token);
 
     }).catch((err) => {
       console.log(err)
@@ -54,24 +54,30 @@ class LoginPage extends React.Component {
   // Render.
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
+      <div className="text-center">
 
-          <label className="label">Username</label>
-          <p className="control">
-            <input className="input" ref="usernameField" type="text" value="username1"/>
-          </p>
+        <h1 className="title">Sign in to create and vote in polls!</h1>
 
-          <label className="label">Password</label>
-          <p className="control">
-            <input className="input" ref="passwordField" type="password" value="password"/>
-          </p>
+        <div className="box">
+          <form onSubmit={this.handleSubmit}>
 
-          <p class="control">
-            <button className="button is-primary" ref="submitButton">Submit</button>
-          </p>
+            <label className="label">Username</label>
+            <p className="control">
+              <input className="input" ref="usernameField" type="text" value="username1"/>
+            </p>
 
-        </form>
+            <label className="label">Password</label>
+            <p className="control">
+              <input className="input" ref="passwordField" type="password" value="password"/>
+            </p>
+
+            <p class="control">
+              <button className="button is-primary" ref="submitButton">Submit</button>
+            </p>
+
+          </form>
+        </div>
+
       </div>
     )
   }
@@ -80,14 +86,14 @@ class LoginPage extends React.Component {
 // Maps state to props.
 const mapStateToProps = (state) => {
   return {
-    jwt: state.jwt
+    token: state.token
   }
 }
 
 // Allow access of dispatch actions as props.
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    setJwt: setJwt
+    storeToken: storeToken
   }, dispatch);
 }
 
