@@ -10,6 +10,11 @@ import { createStore } from 'redux';
 import reducers from 'reducers/index.js';
 let store = createStore(reducers);
 
+// Display state changes.
+store.subscribe(() => {
+  console.log(store.getState())
+});
+
 // React container.
 import UserInterface from 'containers/UserInterface.jsx';
 
