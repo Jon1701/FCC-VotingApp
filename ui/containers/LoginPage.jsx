@@ -1,22 +1,41 @@
-// React.
+////////////////////////////////////////////////////////////////////////////////
+// React
+////////////////////////////////////////////////////////////////////////////////
 import React from 'react';
 
-// External libraries.
-import axios from 'axios';  // AJAX Request library.
+// Components.
+import ErrorBox from 'components/ErrorBox';
 
-// Redux dependencies.
+////////////////////////////////////////////////////////////////////////////////
+// Redux
+////////////////////////////////////////////////////////////////////////////////
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 // Actions.
 import { storeToken } from 'actions/index';
 
-// Component definition.
+////////////////////////////////////////////////////////////////////////////////
+// Other modules
+////////////////////////////////////////////////////////////////////////////////
+
+// External libraries.
+import axios from 'axios';  // AJAX Request library.
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Component definition
+////////////////////////////////////////////////////////////////////////////////
 class LoginPage extends React.Component {
 
   // Constructor.
   constructor(props) {
     super(props);
+
+    // Local state.
+    this.state = {
+      errorMessage: null  // Store error message.
+    }
 
     // Bind form submission handler to component instance.
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -28,7 +47,7 @@ class LoginPage extends React.Component {
     // Prevent default form submit action.
     e.preventDefault();
 
-    // Disable the submit button.
+    // Disable the submit button immediately once form is submitted.
     this.refs.submitButton.disabled = true;
 
     // Get username and password from input fields.
@@ -53,7 +72,15 @@ class LoginPage extends React.Component {
       this.props.storeToken(res.data.token);
 
     }).catch((err) => {
-      console.log(err)
+
+      // Re-enable submit button.
+      this.refs.submitButton.disabled = false;
+
+      // Store error message into state.
+      this.setState({
+        errorMessage: err.response.data.message
+      });
+
     })
 
   }
@@ -61,28 +88,35 @@ class LoginPage extends React.Component {
   // Render.
   render() {
     return (
-      <div className="text-center">
+      <div className="text-center columns is-mobile">
 
-        <h1 className="title">Sign in to create and vote in polls!</h1>
+        <div className="column is-half is-offset-one-quarter">
 
-        <div className="box">
-          <form onSubmit={this.handleSubmit}>
+          <h1 className="title">Sign in to create and vote in polls!</h1>
 
-            <label className="label">Username</label>
-            <p className="control">
-              <input className="input" ref="usernameField" type="text" value="username1"/>
-            </p>
+          <ErrorBox message={this.state.errorMessage}/>
 
-            <label className="label">Password</label>
-            <p className="control">
-              <input className="input" ref="passwordField" type="password" value="password"/>
-            </p>
+          <div className="box">
+            <form onSubmit={this.handleSubmit}>
 
-            <p class="control">
-              <button className="button is-primary" ref="submitButton">Submit</button>
-            </p>
+              <label className="label">Username</label>
+              <p className="control">
+                <input className="input" ref="usernameField" type="text" defaultValue="username11"/>
+              </p>
 
-          </form>
+              <label className="label">Password</label>
+              <p className="control">
+                <input className="input" ref="passwordField" type="password" defaultValue="password"/>
+              </p>
+
+              <p class="control">
+                <button className="button is-primary" ref="submitButton">Submit</button>
+              </p>
+
+            </form>
+
+          </div>
+
         </div>
 
       </div>
