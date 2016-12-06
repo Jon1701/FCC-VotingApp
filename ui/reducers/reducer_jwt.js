@@ -7,6 +7,10 @@ const jwt = (state=null, action) => {
     case 'SET_JSON_WEB_TOKEN':
       return Object.assign({}, state, action.payload);
 
+    // Clear JSON web token from state.
+    case 'CLEAR_JSON_WEB_TOKEN':
+      return Object.assign({}, state, null);
+
   }
 
   // Return default state if no cases match.
