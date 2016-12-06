@@ -25,10 +25,14 @@ class LoginPage extends React.Component {
   // Handle form submission.
   handleSubmit(e) {
 
+    // Disable the submit button.
+    this.refs.submitButton.disabled = true;
+
     // Get username and password from input fields.
     let username = this.refs.usernameField.value;
     let password = this.refs.passwordField.value;
 
+    // Send login info to server.
     axios({
       method: 'post',
       url: '/api/auth/login',
@@ -80,6 +84,14 @@ class LoginPage extends React.Component {
 
       </div>
     )
+  }
+
+  // Component lifecycle method.
+  componentDidMount() {
+
+    // Enable submit button.
+    this.refs.submitButton.disabled = false;
+
   }
 }
 
