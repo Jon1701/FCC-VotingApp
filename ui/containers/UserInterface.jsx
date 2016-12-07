@@ -8,6 +8,7 @@ import NavBar from 'components/NavBar';
 import LoginPage from 'containers/LoginPage';
 import SignupPage from 'containers/SignupPage';
 import CreatePoll from 'containers/CreatePoll';
+import ViewPoll from 'containers/ViewPoll';
 
 // Component definition.
 export default class UserInterface extends React.Component {
@@ -22,8 +23,9 @@ export default class UserInterface extends React.Component {
     return (
       <div>
         <NavBar/>
-        <CreatePoll/>
+        <ViewPoll/>
         <LoginPage/>
+        <CreatePoll/>
         <SignupPage/>
       </div>
     )
