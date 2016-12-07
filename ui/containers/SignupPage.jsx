@@ -94,7 +94,7 @@ class SignupPage extends React.Component {
     return (
       <div className="text-center columns is-mobile">
 
-        <div className="column is-half is-offset-one-quarter">
+        <div className="column is-8 is-offset-2">
 
           <h1 className="title">Create an account to create and vote in polls!</h1>
 
