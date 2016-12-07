@@ -29,7 +29,7 @@ export default class NewPollCreated extends React.Component {
             </div>
 
             <div>
-              <a href={'/api/view/poll/' + this.props.pollId}>Click here to view your poll.</a>
+              <a href={'/view/poll/' + this.props.pollId}>Click here to view your poll.</a>
             </div>
           </div>
         </article>
