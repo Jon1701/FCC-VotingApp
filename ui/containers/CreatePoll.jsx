@@ -170,11 +170,11 @@ class CreatePoll extends React.Component {
   // Render.
   render() {
     return (
-      <div className="columns is-mobile">
+      <div className="text-center columns is-mobile">
 
         <div className="column is-half is-offset-one-quarter">
 
-          <h1 className="title">New Poll</h1>
+          <h1 className="title">Create a new poll</h1>
 
           <div className="box">
 
