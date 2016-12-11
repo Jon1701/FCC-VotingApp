@@ -108,7 +108,7 @@ class SignupPage extends React.Component {
                 <input className="input" ref="passwordField" type="password"/>
               </p>
 
-              <p class="control">
+              <p className="control">
                 <button className="button is-primary" ref="submitButton">Submit</button>
               </p>
 

@@ -200,7 +200,7 @@ class CreatePoll extends React.Component {
 
               {this.displayPollOptions()}
 
-              <p class="control">
+              <p className="control">
                 <button className="button is-primary">Submit</button>
               </p>
 

@@ -118,7 +118,7 @@ class LoginPage extends React.Component {
                 <input className="input" ref="passwordField" type="password" defaultValue="password"/>
               </p>
 
-              <p class="control">
+              <p className="control">
                 <button className="button is-primary" ref="submitButton">Submit</button>
               </p>
 
