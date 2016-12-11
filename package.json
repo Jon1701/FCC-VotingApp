@@ -8,7 +8,8 @@
   },
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack -p",
-    "dev": "gulp"
+    "ui": "cross-env NODE_ENV=development webpack && webpack-dev-server --quiet --hot --progress --inline",
+    "server": "gulp"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
     "babel-preset-react": "^6.16.0",
     "body-parser": "^1.15.2",
     "classnames": "^2.2.5",
+    "cors": "^2.8.1",
     "cross-env": "^3.1.3",
     "crypto": "0.0.3",
     "css-loader": "^0.25.0",
@@ -52,8 +54,8 @@
     "rfr": "^1.2.3",
     "sass-loader": "^4.0.2",
     "style-loader": "^0.13.1",
-    "webpack": "^1.13.2",
-    "webpack-stream": "^3.2.0",
+    "webpack": "^1.14.0",
+    "webpack-dev-server": "^1.16.2",
     "webpack-uglify-js-plugin": "^1.1.9"
   }
 }
