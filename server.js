@@ -4,12 +4,18 @@
 const rfr = require('rfr');       // Root relative paths.
 const morgan = require('morgan'); // Log requests to console.
 const verifyJwt = rfr('/server/middleware/verifyJsonWebToken'); // Authentication middleware.
+const cors = require('cors'); // Cross-origin requests.
 
 ////////////////////////////////////////////////////////////////////////////////
 // Express
 ////////////////////////////////////////////////////////////////////////////////
 const express = require('express');
 const app = express();
+
+// Allow cross origin requests.
+app.use(cors({
+  origin: 'http://localhost:8080'
+}));
 
 // Use morgan to log requests to console.
 app.use(morgan('dev'));
@@ -73,7 +79,7 @@ app.use((err, req, res, next) => {
 ////////////////////////////////////////////////////////////////////////////////
 // Server.
 ////////////////////////////////////////////////////////////////////////////////
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log('Listening for connections on PORT ' + port);
 });
