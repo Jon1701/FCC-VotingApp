@@ -22,6 +22,9 @@ import { storeToken } from 'actions/index';
 // External libraries.
 import axios from 'axios';  // AJAX Request library.
 
+// Axios configuration file.
+const CONFIG_AXIOS = require('config/axios.json');
+
 ////////////////////////////////////////////////////////////////////////////////
 // Component definition
 ////////////////////////////////////////////////////////////////////////////////
@@ -51,22 +54,13 @@ class LoginPage extends React.Component {
     this.refs.submitButton.disabled = true;
 
     // Get username and password from input fields.
-    let username = this.refs.usernameField.value;
-    let password = this.refs.passwordField.value;
+    const data = {
+      username: this.refs.usernameField.value,
+      password: this.refs.passwordField.value
+    }
 
-    // Send login info to server.
-    axios({
-      method: 'post',
-      url: '/api/auth/login',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      data: {
-        username: username,
-        password: password
-      },
-
-    }).then((res) => {
+    // Send a POST request to the API, send username and password.
+    axios.post('/api/auth/login', data, CONFIG_AXIOS).then((res) => {
 
       // Hide error box.
       this.setState({
