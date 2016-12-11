@@ -22,6 +22,7 @@ import { storeToken } from 'actions/index';
 
 // External libraries.
 import axios from 'axios';  // AJAX Request library.
+const CONFIG_AXIOS = require('config/axios.json');  // Axios configuration file.
 const serialize = require('form-serialize'); // Form serialization library.
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -73,17 +74,20 @@ class CreatePoll extends React.Component {
     // Prevent default form submit action.
     e.preventDefault();
 
-    // Send login info to server.
-    axios({
-      method: 'post',
-      url: '/api/auth/create_poll',
-      data: serialize(document.querySelector('#formCreatePoll'), {hash:true}),
+    // Create axios instance.
+    // Send JSON Web Token in the header.
+    const request = axios.create({
       headers: {
-        'Content-Type': 'application/json',
         'x-access-token': this.props.token
       }
+    });
 
-    }).then((res) => {
+    // Serialize the form data.
+    const formData = serialize(document.querySelector('#formCreatePoll'), {hash:true});
+
+    // Send POST request to the API.
+    request.post('/api/auth/create_poll', formData, CONFIG_AXIOS)
+      .then((res) => {
 
       // Hide standard alertbox.
       this.updateAlertBox(null, null);
