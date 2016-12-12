@@ -4,6 +4,9 @@ import React from 'react';
 // External modules.
 import classNames from 'classnames';
 
+// React Router.
+import { Link } from 'react-router';
+
 // Component definition.
 export default class NewPollCreated extends React.Component {
 
@@ -29,7 +32,7 @@ export default class NewPollCreated extends React.Component {
             </div>
 
             <div>
-              <a href={'/view/poll/' + this.props.pollId}>Click here to view your poll.</a>
+              <Link to={'/view/poll/' + this.props.pollId}>Click here to view your poll.</Link>
             </div>
           </div>
         </article>
