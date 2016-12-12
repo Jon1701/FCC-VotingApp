@@ -25,7 +25,7 @@ export default class UserInterface extends React.Component {
   // Component render.
   render() {
     return (
-      <Router history={browserHistory}>
+      <Router history={hashHistory}>
         <Route path='/' component={App}>
           <Route path='/login' component={LoginPage}/>
           <Route path='/signup' component={SignupPage}/>
