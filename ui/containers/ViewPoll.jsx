@@ -18,6 +18,7 @@ import { storeToken } from 'actions/index';
 ////////////////////////////////////////////////////////////////////////////////
 // Other modules
 ////////////////////////////////////////////////////////////////////////////////
+const COLOURS = require('config/colours');
 
 // External libraries.
 import axios from 'axios';  // AJAX Request library.
@@ -32,6 +33,11 @@ class ViewPoll extends React.Component {
   constructor(props) {
     super(props);
 
+    // Local state.
+    this.state = {
+
+    }
+
     // Bind methods to component instance.
     this.getPollInformation = this.getPollInformation.bind(this);
   }
@@ -42,20 +48,24 @@ class ViewPoll extends React.Component {
     // Send a GET request to the server to get poll information.
     axios.get('/api/view/poll/' + pollID, CONFIG_AXIOS).then((res) => {
 
-      console.log(res.data)
+      // Get a tally of results.
+      const tally = res.data.results;
 
     }).catch((err) => {
 
     });
 
-    console.log(pollID);
+  }
+
+  componentDidMount() {
+
+    // Look up poll information with the given Poll ID.
+    const pollInfo = this.getPollInformation(this.props.params.poll_id);
+
   }
 
   // Render.
   render() {
-
-    // Look up poll information with the given Poll ID.
-    const pollInfo = this.getPollInformation(this.props.params.poll_id);
 
     return (
       <div className="text-center columns is-mobile">
@@ -66,7 +76,7 @@ class ViewPoll extends React.Component {
 
           <div className="box">
 
-            View Poll here
+            Chart goes here
 
           </div>
 
@@ -74,6 +84,8 @@ class ViewPoll extends React.Component {
 
       </div>
     )
+
+
   }
 
 }
