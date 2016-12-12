@@ -8,7 +8,7 @@
   },
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack -p",
-    "ui": "cross-env NODE_ENV=development webpack && webpack-dev-server --quiet --hot --progress --inline",
+    "ui": "cross-env NODE_ENV=development webpack && webpack-dev-server --quiet --hot --progress --inline --history-api-fallback",
     "server": "gulp"
   },
   "repository": {
