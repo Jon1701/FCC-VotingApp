@@ -43,6 +43,10 @@ const poll = (req, res, next) => {
       // If no poll was found, return an error.
       if (!resultPoll) { return next(RESPONSE.ERROR.VIEW_POLL.NO_POLL_FOUND); }
 
+      // Get poll title and user.
+      const pollTitle = resultPoll.title;
+      const pollCreator = resultPoll.username;
+
       // Tally up the votes in the poll.
       Vote.aggregate([
         {
@@ -77,8 +81,14 @@ const poll = (req, res, next) => {
             newResult[choice] = counts;
           }
 
+          // Get poll title and creator.
+          const metadata = {
+            title: pollTitle,
+            author: pollCreator
+          }
+
           // Return results to user.
-          return res.send(Object.assign({}, RESPONSE.SUCCESS.VIEW_POLL.VIEW_RESULTS, {results: newResult}));
+          return res.send(Object.assign({}, RESPONSE.SUCCESS.VIEW_POLL.VIEW_RESULTS, {poll: metadata, results: newResult}));
 
         } else {
 
@@ -93,8 +103,14 @@ const poll = (req, res, next) => {
             newResult[choice] = 0;
           }
 
+          // Get poll title and creator.
+          const metadata = {
+            title: pollTitle,
+            author: pollCreator
+          }
+
           // Return results to user.
-          return res.send(Object.assign({}, RESPONSE.SUCCESS.VIEW_POLL.VIEW_RESULTS, {results: newResult}));
+          return res.send(Object.assign({}, RESPONSE.SUCCESS.VIEW_POLL.VIEW_RESULTS, {poll: metadata, results: newResult}));
 
         }
 
