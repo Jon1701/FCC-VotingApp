@@ -21,6 +21,7 @@ import { storeToken } from 'actions/index';
 
 // External libraries.
 import axios from 'axios';  // AJAX Request library.
+const CONFIG_AXIOS = require('config/axios.json');  // Axios configuration file.
 
 ////////////////////////////////////////////////////////////////////////////////
 // Component definition
@@ -32,19 +33,30 @@ class ViewPoll extends React.Component {
     super(props);
 
     // Bind methods to component instance.
-    this.updateAlertBox = this.updateAlertBox.bind(this);
+    this.getPollInformation = this.getPollInformation.bind(this);
   }
 
-  // Function to update Alert Box.
-  updateAlertBox(alertBoxMessage, alertBoxType) {
-    this.setState({
-      alertBoxMessage: alertBoxMessage,
-      alertBoxType: alertBoxType
-    })
+  // Function to get poll information regarding a give Poll ID.
+  getPollInformation(pollID) {
+
+    // Send a GET request to the server to get poll information.
+    axios.get('/api/view/poll/' + pollID, CONFIG_AXIOS).then((res) => {
+
+      console.log(res.data)
+
+    }).catch((err) => {
+
+    });
+
+    console.log(pollID);
   }
 
   // Render.
   render() {
+
+    // Look up poll information with the given Poll ID.
+    const pollInfo = this.getPollInformation(this.props.params.poll_id);
+
     return (
       <div className="text-center columns is-mobile">
 
