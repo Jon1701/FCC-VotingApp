@@ -37,11 +37,9 @@ class LoggedIn extends React.Component {
 class NotLoggedIn extends React.Component {
   render() {
     return (
-      <div>
-        <div className="nav-center">
-          <Link to='/login' className="nav-item">Login</Link>
-          <Link to='/signup' className="nav-item">Signup</Link>
-        </div>
+      <div className="nav-right">
+        <Link to="/login" className="nav-item">Login</Link>
+        <Link to="/signup" className="nav-item">Signup</Link>
       </div>
     )
   }
@@ -60,11 +58,10 @@ class NavBar extends React.Component {
     return (
       <div>
 
-        <nav className="nav has-shadow">
+        <nav className="nav">
+
           <div className="nav-left">
-
             <Link to='/' className="nav-item is-brand">FCC Voting App</Link>
-
           </div>
 
           {this.props.token ? <LoggedIn token={this.props.token}/> : <NotLoggedIn/>}
