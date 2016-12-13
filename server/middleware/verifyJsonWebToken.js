@@ -29,7 +29,7 @@ const verifyJsonWebToken = (req, res, next) => {
       if (err) {
 
         // Token is invalid, return error as response.
-        return res.json(RESPONSE.ERROR.TOKEN.INVALID_TOKEN);
+        return res.status(500).json(RESPONSE.ERROR.TOKEN.INVALID_TOKEN);
 
       } else {
 
@@ -46,7 +46,7 @@ const verifyJsonWebToken = (req, res, next) => {
   } else {
 
     // No token provided, return error.
-    return res.json(RESPONSE.ERROR.MISSING_TOKEN);
+    return res.status(500).json(RESPONSE.ERROR.MISSING_TOKEN);
 
   }
 
