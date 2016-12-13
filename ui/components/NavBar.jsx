@@ -1,82 +1,78 @@
-// React.
+////////////////////////////////////////////////////////////////////////////////
+// React
+////////////////////////////////////////////////////////////////////////////////
 import React from 'react';
 
-// Redux dependencies.
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
-// React Router.
+////////////////////////////////////////////////////////////////////////////////
+// React Router
+////////////////////////////////////////////////////////////////////////////////
 import { Link } from 'react-router';
 
-class LoggedIn extends React.Component {
+////////////////////////////////////////////////////////////////////////////////
+// Redux
+////////////////////////////////////////////////////////////////////////////////
+import { connect } from 'react-redux';
 
-  constructor(props) {
-    super(props);
-  }
-
-  getUsername(token) {
-    return JSON.parse(atob(token.split('.')[1])).username;
-  }
-
-  render() {
-    return (
-      <div>
-
-        <Link to='/create_poll' className="nav-item">Create Poll</Link>
-
-        <div className="nav-center">
-          <a className="nav-item" href="#">
-            {this.getUsername(this.props.token)}
-          </a>
-        </div>
-      </div>
-    )
-  }
-}
-
-class NotLoggedIn extends React.Component {
-  render() {
-    return (
-      <div className="nav-right">
-        <Link to="/login" className="nav-item">Login</Link>
-        <Link to="/signup" className="nav-item">Signup</Link>
-      </div>
-    )
-  }
-}
-
+////////////////////////////////////////////////////////////////////////////////
 // Component definition.
+////////////////////////////////////////////////////////////////////////////////
 class NavBar extends React.Component {
 
   // Component constructor.
   constructor(props) {
     super(props);
+
+    // Bind methods to component instance.
+    this.getUsername = this.getUsername.bind(this);
+  }
+
+  // Method to extract username from the JSON Web Token.
+  getUsername(token) {
+    return JSON.parse(atob(token.split('.')[1])).username;
   }
 
   // Component render.
   render() {
     return (
-      <div>
+      <nav className="nav">
 
-        <nav className="nav">
+        <div className="nav-left">
+          <Link to='/' className="nav-item is-brand">FCC Voting App</Link>
+        </div>
 
-          <div className="nav-left">
-            <Link to='/' className="nav-item is-brand">FCC Voting App</Link>
-          </div>
+        {this.props.token ? <Authenticated username={this.getUsername(this.props.token)}/>  : <NotAuthenticated/>}
 
-          {this.props.token ? <LoggedIn token={this.props.token}/> : <NotLoggedIn/>}
-
-        </nav>
-
-      </div>
+      </nav>
     )
   }
 }
 
+// Map global state to props.
 const mapStateToProps = (state) => {
   return {
     token: state.token
   }
 }
 
+// Export <NavBar/> but allow connection to Redux store.
 export default connect(mapStateToProps, null)(NavBar);
+
+////////////////////////////////////////////////////////////////////////////////
+// Presentational Components.
+////////////////////////////////////////////////////////////////////////////////
+
+// Navigation buttons for non-authenticated users.
+const NotAuthenticated = (props) => (
+  <div className="nav-right">
+    <Link to="/login" className="nav-item">Login</Link>
+    <Link to="/signup" className="nav-item">Signup</Link>
+  </div>
+)
+
+// Navigation buttons for authenticated users.
+const Authenticated = (props) => (
+  <div className="nav-center">
+    <Link to='/create_poll' className="nav-item">Create Poll</Link>
+    <Link className="nav-item">{props.username}</Link>
+  </div>
+)
