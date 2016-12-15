@@ -15,13 +15,9 @@ export default class AlertBox extends React.Component {
   // Component render.
   render() {
 
-    // Classes to toggle visibility of this component.
-    const toggleHiddenClass = classNames({
-      'hidden': this.props.message == null
-    });
-
     // Classes to toggle danger/success/warning
-    const boxType = classNames({
+    const myClasses = classNames({
+      'hidden': this.props.message == null,
       'message': true,
       'is-info': true,
       'is-danger': this.props.boxType == 'DANGER',
@@ -30,13 +26,11 @@ export default class AlertBox extends React.Component {
     });
 
     return (
-      <div className={toggleHiddenClass}>
-        <article className={boxType}>
-          <div className="message-body">
-            {this.props.message}
-          </div>
-        </article>
-      </div>
+      <article className={myClasses}>
+        <div className="message-body">
+          {this.props.message}
+        </div>
+      </article>
     )
   }
 }
