@@ -7,18 +7,9 @@ import React from 'react';
 import AlertBox from 'components/AlertBox';
 
 ////////////////////////////////////////////////////////////////////////////////
-// React Router
-////////////////////////////////////////////////////////////////////////////////
-import { Link } from 'react-router';
-
-////////////////////////////////////////////////////////////////////////////////
 // Redux
 ////////////////////////////////////////////////////////////////////////////////
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
-// Actions.
-import { storeToken } from 'actions/index';
 
 ////////////////////////////////////////////////////////////////////////////////
 // Other modules
@@ -33,16 +24,6 @@ const serialize = require('form-serialize'); // Form serialization library.
 ////////////////////////////////////////////////////////////////////////////////
 // Component definition
 ////////////////////////////////////////////////////////////////////////////////
-class PollOption extends React.Component {
-  render() {
-    return (
-      <p className="control">
-        <input className="input" type="text" name="choices[]" placeholder="Poll Option"/>
-      </p>
-    )
-  }
-}
-
 class CreatePoll extends React.Component {
 
   // Constructor.
@@ -54,7 +35,8 @@ class CreatePoll extends React.Component {
       alertBoxMessage: null,  // Alertbox message.
       alertBoxType: null,  // Alertbox type.
 
-      pollId: null,  // Newly created poll id.
+      pollID: null,  // Newly created poll id.
+      pollCreated: null,  // Boolean to flag whether or not the poll has successfully created
       numPollOptions: 2 // Default number of poll options.
     }
 
@@ -98,15 +80,18 @@ class CreatePoll extends React.Component {
       this.updateAlertBox(null, null);
 
       // When request is successful, store newly created poll id into state.
+      // Set pollCreated to true.
       this.setState({
-        pollId: res.data.poll_id
+        pollID: res.data.poll_id,
+        pollCreated: true
       })
 
     }).catch((err) => {
 
       // Hide poll creation alertbox.
       this.setState({
-        pollId: null
+        pollID: null,
+        pollCreated: null
       })
 
       // Display error message.
@@ -163,21 +148,26 @@ class CreatePoll extends React.Component {
 
   }
 
-  // Function to display the dynamically generated <PollOption/> components.
-  displayPollOptions() {
-
-    // Create an array of integers from 0 to this.state.numPollOptions.
-    const sequence = Array.from(Array(this.state.numPollOptions).keys());
-
-    // Using that array of integers, create <PollOption/> for each integer.
-    return sequence.map((val, idx, arr) => {
-      return <PollOption key={'pollOption-' + idx}/>;
-    });
-
-  }
-
   // Render.
   render() {
+
+    // Function to dynamically generate input boxes to accept poll input choices.
+    const generatePollChoiceInputs = () => {
+
+      // Create an array of integers from 0 to this.state.numPollOptions.
+      const sequence = Array.from(Array(this.state.numPollOptions).keys());
+
+      // Using that array of integers, create an input box field for each integer.
+      return sequence.map((val, idx, arr) => {
+        return (
+          <p className="control" key={'pollOption-' + idx}>
+            <input className="input" type="text" name="choices[]" placeholder="Poll Option"/>
+          </p>
+        )
+      });
+
+    }
+
     return (
       <div className="text-center columns is-mobile">
 
@@ -188,7 +178,9 @@ class CreatePoll extends React.Component {
           <div className="box">
 
             <AlertBox message={this.state.alertBoxMessage} boxType={this.state.alertBoxType}/>
-            <NewPollCreatedAlertBox pollId={this.state.pollId}/>
+
+            {/* If the poll is created, show SUCCESS alertbox, else return blank. */}
+            {this.state.pollCreated ? <AlertBoxPollCreated pollID={this.state.pollID}/> : <span></span>}
 
             <form onSubmit={this.handleSubmit} id="formCreatePoll">
 
@@ -204,7 +196,8 @@ class CreatePoll extends React.Component {
                 <a className="button width-50" onClick={this.handleRemovePollOption}>Remove</a>
               </p>
 
-              {this.displayPollOptions()}
+              {/* Generate Poll Choice <input/> boxes */}
+              {generatePollChoiceInputs()}
 
               <p className="control">
                 <button className="button is-primary">Submit</button>
@@ -229,48 +222,24 @@ const mapStateToProps = (state) => {
   }
 }
 
-// Allow access of dispatch actions as props.
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    storeToken: storeToken
-  }, dispatch);
-}
-
 // Allow component access to Redux store.
-export default connect(mapStateToProps, mapDispatchToProps)(CreatePoll);
+export default connect(mapStateToProps, null)(CreatePoll);
 
-// Custom AlertBox
-class NewPollCreatedAlertBox extends React.Component {
+////////////////////////////////////////////////////////////////////////////////
+// Presentational Components.
+////////////////////////////////////////////////////////////////////////////////
 
-    // Constructor
-    constructor(props) {
-      super(props);
-    }
-
-    // Component render.
-    render() {
-
-      // Classes to toggle visibility of this component.
-      const toggleHiddenClass = classNames({
-        'hidden': this.props.pollId == null
-      });
-
-      return (
-        <div className={toggleHiddenClass}>
-          <article className="message is-success">
-            <div className="message-body">
-              <div>
-                Poll successfully created!
-              </div>
-
-              <div>
-                <Link to={'/view/poll/' + this.props.pollId}>Click here to view your poll.</Link>
-              </div>
-            </div>
-          </article>
-        </div>
-      )
-
-    }
-
-}
+// Custom Alertbox for when a poll is successfully created.
+import { Link } from 'react-router';  // React Router Link tag.
+const AlertBoxPollCreated = (props) => (
+  <article className="message is-success">
+    <div className="message-body">
+      <div>
+        Poll successfully created!
+      </div>
+      <div>
+        <Link to={'/view/poll/' + props.pollID}>Click here to view your poll.</Link>
+      </div>
+    </div>
+  </article>
+)
