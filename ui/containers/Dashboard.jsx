@@ -23,8 +23,6 @@ export default class Dashboard extends React.Component {
         <div className="column is-8 is-offset-2">
           <div className="box">
             Dashboard
-
-            <Link to="/auth/create_poll">Create Poll</Link>
           </div>
         </div>
       </div>
