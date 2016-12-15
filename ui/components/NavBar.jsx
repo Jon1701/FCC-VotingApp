@@ -72,7 +72,7 @@ const NotAuthenticated = (props) => (
 // Navigation buttons for authenticated users.
 const Authenticated = (props) => (
   <div className="nav-center">
-    <Link to='/create_poll' className="nav-item">Create Poll</Link>
+    <Link to='/auth/create_poll' className="nav-item">Create Poll</Link>
     <Link className="nav-item">{props.username}</Link>
   </div>
 )
