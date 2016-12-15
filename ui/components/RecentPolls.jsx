@@ -29,18 +29,21 @@ export default class RecentPolls extends React.Component {
 
     // Bind methods to component instance.
     this.getPollData = this.getPollData.bind(this);
+    this.previousPage = this.previousPage.bind(this);
+    this.nextPage = this.nextPage.bind(this);
 
     // Local state.
     this.state = {
-      polls: null // Array of polls
+      polls: null, // Array of polls
+      currentPage: 1,  // Current page of results.
     }
   }
 
   // Get poll data.
-  getPollData() {
+  getPollData(pageNum) {
 
     // GET request to batch retrieve recent polls.
-    axios.get('/api/view/recent_polls/1', CONFIG_AXIOS).then((res) => {
+    axios.get('/api/view/recent_polls/' + pageNum, CONFIG_AXIOS).then((res) => {
 
       // Store poll data in state.
       this.setState({
@@ -56,12 +59,50 @@ export default class RecentPolls extends React.Component {
 
   }
 
+  // Function to get previous page of results.
+  previousPage() {
+
+    // Get current page number.
+    let currentPage = this.state.currentPage;
+
+    // Only go to previous page if current page is greater than 1.
+    if (currentPage > 1) {
+
+      // Go back one page.
+      this.setState({
+        currentPage: currentPage - 1
+      });
+
+      // Get paginated results.
+      this.getPollData(currentPage - 1);
+
+    }
+
+  }
+
+  // Function to get next page of results.
+  nextPage() {
+
+    // Get current page number.
+    let currentPage = this.state.currentPage;
+
+    // Go forward one page.
+    this.setState({
+      currentPage: currentPage + 1
+    });
+
+    // Get paginated results.
+    this.getPollData(currentPage + 1);
+
+
+  }
+
   // Component Lifecycle method.
   // Block will run once component has been rendered.
   componentDidMount() {
 
     // Store poll data in local state.
-    this.getPollData();
+    this.getPollData(this.state.currentPage);
 
   }
 
@@ -82,7 +123,13 @@ export default class RecentPolls extends React.Component {
 
       // Return a widget showing links to recently created polls.
       return (
-        <RecentlyCreatedPolls html={pollsHtml}/>
+        <div>
+          <RecentlyCreatedPolls html={pollsHtml}/>
+          <div className="control width-100">
+            <div className="button width-50" onClick={this.previousPage}>Previous</div>
+            <div className="button width-50" onClick={this.nextPage}>Next</div>
+          </div>
+        </div>
       )
 
     } else {
