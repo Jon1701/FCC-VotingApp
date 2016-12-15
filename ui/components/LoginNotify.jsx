@@ -39,7 +39,7 @@ class LoginNotify extends React.Component {
     return (
       <div className="login-notify box">
         <p>
-          You must be logged in to vote.
+          {this.props.customMessage ? this.props.customMessage : 'You must be logged in to vote.'}
         </p>
 
         <p>
