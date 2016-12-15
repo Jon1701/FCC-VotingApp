@@ -37,7 +37,7 @@ class NavBar extends React.Component {
       <nav className="nav">
 
         <div className="nav-left">
-          <Link to='/' className="nav-item is-brand">FCC Voting App</Link>
+          <Link to='/' className="nav-item is-brand">Voteify</Link>
         </div>
 
         {this.props.token ? <Authenticated username={this.getUsername(this.props.token)}/>  : <NotAuthenticated/>}
