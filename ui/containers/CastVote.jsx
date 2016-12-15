@@ -6,6 +6,12 @@ import React from 'react';
 // Components.
 import AlertBox from 'components/AlertBox';
 import CastVoteForm from 'components/CastVoteForm';
+import LoginNotify from 'components/LoginNotify';
+
+////////////////////////////////////////////////////////////////////////////////
+// Redux
+////////////////////////////////////////////////////////////////////////////////
+import { connect } from 'react-redux';
 
 ////////////////////////////////////////////////////////////////////////////////
 // Other modules
@@ -18,7 +24,7 @@ const CONFIG_AXIOS = require('config/axios.json');  // Axios configuration file.
 ////////////////////////////////////////////////////////////////////////////////
 // Component definition
 ////////////////////////////////////////////////////////////////////////////////
-export default class CastVote extends React.Component {
+class CastVote extends React.Component {
 
   // Constructor.
   constructor(props) {
@@ -90,18 +96,44 @@ export default class CastVote extends React.Component {
   // Render.
   render() {
 
-    return (
-      <div className="has-text-centered columns is-mobile">
-        <div className="column is-8 is-offset-2">
-          <h1 className="title">Cast your vote!</h1>
-          <div className="box">
+    // If a token is provided, show cast vote form.
+    // If not, show login form.
+    if (this.props.token) {
 
-            {this.state.data ? <CastVoteForm pollData={this.state.data} poll_id={this.props.params.poll_id}/> : <div>Not Loaded</div>}
+      return (
+        <div className="has-text-centered columns is-mobile">
+          <div className="column is-8 is-offset-2">
+            <h1 className="title">Cast your vote!</h1>
+            <div className="box">
 
+              {this.state.data ? <CastVoteForm pollData={this.state.data} poll_id={this.props.params.poll_id}/> : <div>Not Loaded</div>}
+
+            </div>
           </div>
         </div>
-      </div>
-    )
+      )
+
+    } else {
+      return (
+        <div className="has-text-centered columns is-mobile">
+          <div className="column is-8 is-offset-2">
+            <LoginNotify customMessage={'You must be logged in to vote on a poll.'}/>
+          </div>
+        </div>
+      )
+    }
+
+
   }
 
 }
+
+// Maps state to props.
+const mapStateToProps = (state) => {
+  return {
+    token: state.token
+  }
+}
+
+// Allow component access to Redux store.
+export default connect(mapStateToProps, null)(CastVote);
