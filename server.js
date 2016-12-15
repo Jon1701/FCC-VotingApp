@@ -44,6 +44,9 @@ apiRoutes.post('/signup', rfr('/server/routes/api/signup'));
 // View poll
 apiRoutes.get('/view/poll/:poll_id', rfr('/server/routes/api/view/poll'));
 
+// Batch get list of recent polls.
+apiRoutes.get('/view/recent_polls/:page_num', rfr('/server/routes/api/view/recent_polls'));
+
 ////////////////////////////////////////////////////////////////////////////////
 // Authenticated routes: /api/auth
 ////////////////////////////////////////////////////////////////////////////////
