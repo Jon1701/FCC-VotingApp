@@ -10,10 +10,6 @@ import AlertBox from 'components/AlertBox';
 // Redux
 ////////////////////////////////////////////////////////////////////////////////
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
-// Actions.
-import { storeToken } from 'actions/index';
 
 ////////////////////////////////////////////////////////////////////////////////
 // Other modules
@@ -36,12 +32,14 @@ class SignupPage extends React.Component {
 
     // Local state.
     this.state = {
-      message: null,  // Store error message.
-      messageBoxType: null
+      userCreated: null,  // Boolean flag to signify whether or not a user was created.
+      alertBoxMessage: null,  // Store error message.
+      alertBoxType: null
     }
 
     // Bind form submission handler to component instance.
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.updateAlertBox = this.updateAlertBox.bind(this);
   }
 
   // Handle form submission.
@@ -49,6 +47,9 @@ class SignupPage extends React.Component {
 
     // Prevent default form submit action.
     e.preventDefault();
+
+    // Clear existing alert box.
+    this.updateAlertBox(null, null);
 
     // Disable the submit button immediately once form is submitted.
     this.refs.submitButton.disabled = true;
@@ -64,8 +65,7 @@ class SignupPage extends React.Component {
 
       // Store error message into state.
       this.setState({
-        message: res.data.message,
-        messageBoxType: 'SUCCESS'
+        userCreated: true
       });
 
     }).catch((err) => {
@@ -74,13 +74,18 @@ class SignupPage extends React.Component {
       this.refs.submitButton.disabled = false;
 
       // Store error message into state.
-      this.setState({
-        message: err.response.data.message,
-        messageBoxType: 'DANGER'
-      });
+      this.updateAlertBox(err.response.data.message, 'DANGER');
 
     })
 
+  }
+
+  // Function to update Alert Box.
+  updateAlertBox(alertBoxMessage, alertBoxType) {
+    this.setState({
+      alertBoxMessage: alertBoxMessage,
+      alertBoxType: alertBoxType
+    })
   }
 
   // Render.
@@ -94,7 +99,9 @@ class SignupPage extends React.Component {
 
           <div className="box">
 
-            <AlertBox message={this.state.message} boxType={this.state.messageBoxType}/>
+            <AlertBox message={this.state.alertBoxMessage} boxType={this.state.alertBoxType}/>
+
+            {this.state.userCreated ? <AlertBoxUserCreated/> : <span/>}
 
             <form onSubmit={this.handleSubmit}>
 
@@ -131,7 +138,6 @@ class SignupPage extends React.Component {
   }
 }
 
-
 // Maps state to props.
 const mapStateToProps = (state) => {
   return {
@@ -139,12 +145,24 @@ const mapStateToProps = (state) => {
   }
 }
 
-// Allow access of dispatch actions as props.
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    storeToken: storeToken
-  }, dispatch);
-}
-
 // Allow component access to Redux store.
-export default connect(mapStateToProps, mapDispatchToProps)(SignupPage);
+export default connect(mapStateToProps, null)(SignupPage);
+
+////////////////////////////////////////////////////////////////////////////////
+// Presentational components
+////////////////////////////////////////////////////////////////////////////////
+
+// Alertbox to show that the user has been successfully created.
+import { Link } from 'react-router';
+const AlertBoxUserCreated = (props) => (
+  <article className="message is-success">
+    <div className="message-body">
+      <div>
+        User successfully created!
+      </div>
+      <div>
+        <Link to={'/login'}>Click here to login.</Link>
+      </div>
+    </div>
+  </article>
+)
