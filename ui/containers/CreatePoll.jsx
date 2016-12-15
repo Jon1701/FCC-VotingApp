@@ -5,6 +5,7 @@ import React from 'react';
 
 // Components.
 import AlertBox from 'components/AlertBox';
+import LoginNotify from 'components/LoginNotify';
 
 ////////////////////////////////////////////////////////////////////////////////
 // Redux
@@ -168,49 +169,67 @@ class CreatePoll extends React.Component {
 
     }
 
-    return (
-      <div className="has-text-centered columns is-mobile">
+    // If a token has been provided, show create poll form.
+    // If not, show login form.
+    if (this.props.token) {
 
-        <div className="column is-8 is-offset-2">
+      return (
+        <div className="has-text-centered columns is-mobile">
 
-          <h1 className="title">Create a new poll</h1>
+          <div className="column is-8 is-offset-2">
 
-          <div className="box">
+            <h1 className="title">Create a new poll</h1>
 
-            <AlertBox message={this.state.alertBoxMessage} boxType={this.state.alertBoxType}/>
+            <div className="box">
 
-            {/* If the poll is created, show SUCCESS alertbox, else return blank. */}
-            {this.state.pollCreated ? <AlertBoxPollCreated pollID={this.state.pollID}/> : <span></span>}
+              <AlertBox message={this.state.alertBoxMessage} boxType={this.state.alertBoxType}/>
 
-            <form onSubmit={this.handleSubmit} id="formCreatePoll">
+              {/* If the poll is created, show SUCCESS alertbox, else return blank. */}
+              {this.state.pollCreated ? <AlertBoxPollCreated pollID={this.state.pollID}/> : <span></span>}
 
-              <label className="label">Enter your question:</label>
-              <p className="control">
-                <input className="input" name="title" type="text"/>
-              </p>
+              <form onSubmit={this.handleSubmit} id="formCreatePoll">
 
-              <label className="label">Poll options:</label>
+                <label className="label">Enter your question:</label>
+                <p className="control">
+                  <input className="input" name="title" type="text"/>
+                </p>
 
-              <p className="control width-100 has-addons">
-                <a className="button width-50" onClick={this.handleAddPollOption}>Add</a>
-                <a className="button width-50" onClick={this.handleRemovePollOption}>Remove</a>
-              </p>
+                <label className="label">Poll options:</label>
 
-              {/* Generate Poll Choice <input/> boxes */}
-              {generatePollChoiceInputs()}
+                <p className="control width-100 has-addons">
+                  <a className="button width-50" onClick={this.handleAddPollOption}>Add</a>
+                  <a className="button width-50" onClick={this.handleRemovePollOption}>Remove</a>
+                </p>
 
-              <p className="control">
-                <button className="button is-primary">Submit</button>
-              </p>
+                {/* Generate Poll Choice <input/> boxes */}
+                {generatePollChoiceInputs()}
 
-            </form>
+                <p className="control">
+                  <button className="button is-primary">Submit</button>
+                </p>
+
+              </form>
+
+            </div>
 
           </div>
 
         </div>
+      )
 
-      </div>
-    )
+    } else {
+
+      return (
+        <div className="has-text-centered columns is-mobile">
+          <div className="column is-8 is-offset-2">
+            <LoginNotify customMessage={'You must be logged in create a new poll.'}/>
+          </div>
+        </div>
+      )
+
+    }
+
+
   }
 
 }
