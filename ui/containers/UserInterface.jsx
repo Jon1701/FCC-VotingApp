@@ -11,9 +11,10 @@ import CreatePoll from 'containers/CreatePoll';
 import ViewPoll from 'containers/ViewPoll';
 import CastVote from 'containers/CastVote';
 import App from 'containers/App';
+import AppIndex from 'containers/AppIndex';
 
 // React Router
-import { Router, Route, Link, browserHistory, IndexRoute, hashHistory } from 'react-router';
+import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 
 // Component definition.
 export default class UserInterface extends React.Component {
@@ -28,6 +29,7 @@ export default class UserInterface extends React.Component {
     return (
       <Router history={hashHistory}>
         <Route path='/' component={App}>
+          <IndexRoute component={AppIndex}/>
           <Route path='/login' component={LoginPage}/>
           <Route path='/signup' component={SignupPage}/>
           <Route path='/create_poll' component={CreatePoll}/>
@@ -38,13 +40,3 @@ export default class UserInterface extends React.Component {
     )
   }
 }
-
-/*
-<div>
-  <NavBar/>
-  <ViewPoll/>
-  <LoginPage/>
-  <CreatePoll/>
-  <SignupPage/>
-</div>
-*/
