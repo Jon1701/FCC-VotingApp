@@ -6,6 +6,8 @@ const jwt = (state=null, action) => {
     // Store JSON web token in state.
     case 'STORE_TOKEN':
 
+      sessionStorage.setItem('token', action.payload)
+
       // Store token and username in state.
       return action.payload;
 
