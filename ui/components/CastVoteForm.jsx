@@ -138,7 +138,7 @@ class CastVoteForm extends React.Component {
 
           <br/>
 
-          <div className="width-100 text-center">
+          <div className="width-100 has-text-centered">
             <a className="width-50 button is-primary" ref="submitButton" onClick={this.handleFormSubmit}>Cast Vote</a>
           </div>
         </form>

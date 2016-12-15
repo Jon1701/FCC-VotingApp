@@ -91,7 +91,7 @@ class SignupPage extends React.Component {
   // Render.
   render() {
     return (
-      <div className="text-center columns is-mobile">
+      <div className="has-text-centered columns is-mobile">
 
         <div className="column is-8 is-offset-2">
 

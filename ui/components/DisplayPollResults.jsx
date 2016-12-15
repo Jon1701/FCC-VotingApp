@@ -138,7 +138,7 @@ export default class DisplayPollResults extends React.Component {
     }
 
     return (
-      <div className="text-center columns is-mobile">
+      <div className="has-text-centered columns is-mobile">
         <div className="column is-8 is-offset-2">
           <h1 className="title">View Poll</h1>
           <div className="box">

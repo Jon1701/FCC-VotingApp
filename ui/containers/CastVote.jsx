@@ -91,7 +91,7 @@ export default class CastVote extends React.Component {
   render() {
 
     return (
-      <div className="text-center columns is-mobile">
+      <div className="has-text-centered columns is-mobile">
         <div className="column is-8 is-offset-2">
           <h1 className="title">Cast your vote!</h1>
           <div className="box">
