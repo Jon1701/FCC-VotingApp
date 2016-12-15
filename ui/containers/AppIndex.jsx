@@ -5,11 +5,17 @@ import React from 'react';
 
 // Components.
 import RecentPolls from 'components/RecentPolls';
+import LoginNotify from 'components/LoginNotify';
+
+////////////////////////////////////////////////////////////////////////////////
+// Redux
+////////////////////////////////////////////////////////////////////////////////
+import { connect } from 'react-redux';
 
 ////////////////////////////////////////////////////////////////////////////////
 // Component definition
 ////////////////////////////////////////////////////////////////////////////////
-export default class AppIndex extends React.Component {
+class AppIndex extends React.Component {
 
   // Constructor.
   constructor(props) {
@@ -34,6 +40,8 @@ export default class AppIndex extends React.Component {
 
             <RecentPolls username={null}/>
 
+            {this.props.token ? <span/> : <LoginNotify/>}
+
           </div>
         </div>
       </div>
@@ -41,3 +49,13 @@ export default class AppIndex extends React.Component {
   }
 
 }
+
+// Maps state to props.
+const mapStateToProps = (state) => {
+  return {
+    token: state.token
+  }
+}
+
+// Allow component access to Redux store.
+export default connect(mapStateToProps, null)(AppIndex);
