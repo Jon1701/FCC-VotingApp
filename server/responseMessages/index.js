@@ -54,7 +54,7 @@ const successResponses = {
     POLL_CREATED: response('POLL_CREATED', 'Poll successfully created.')
   },
   CAST_VOTE: {
-    VOTE_SUCCESSFUL: response('VOTE_SUCCESSFUL', 'User has voted for this poll.')
+    VOTE_SUCCESSFUL: response('VOTE_SUCCESSFUL', 'Vote successfully cast.')
   },
   VIEW_POLL: {
     VIEW_RESULTS: response('VIEW_RESULTS', 'Results tallied.')
