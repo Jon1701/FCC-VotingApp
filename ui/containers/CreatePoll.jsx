@@ -5,7 +5,11 @@ import React from 'react';
 
 // Components.
 import AlertBox from 'components/AlertBox';
-import NewPollCreated from 'components/NewPollCreated';
+
+////////////////////////////////////////////////////////////////////////////////
+// React Router
+////////////////////////////////////////////////////////////////////////////////
+import { Link } from 'react-router';
 
 ////////////////////////////////////////////////////////////////////////////////
 // Redux
@@ -22,6 +26,7 @@ import { storeToken } from 'actions/index';
 
 // External libraries.
 import axios from 'axios';  // AJAX Request library.
+import classNames from 'classnames';
 const CONFIG_AXIOS = require('config/axios.json');  // Axios configuration file.
 const serialize = require('form-serialize'); // Form serialization library.
 
@@ -183,7 +188,8 @@ class CreatePoll extends React.Component {
           <div className="box">
 
             <AlertBox message={this.state.alertBoxMessage} boxType={this.state.alertBoxType}/>
-            <NewPollCreated pollId={this.state.pollId}/>
+            <NewPollCreatedAlertBox pollId={this.state.pollId}/>
+
             <form onSubmit={this.handleSubmit} id="formCreatePoll">
 
               <label className="label">Enter your question:</label>
@@ -232,3 +238,39 @@ const mapDispatchToProps = (dispatch) => {
 
 // Allow component access to Redux store.
 export default connect(mapStateToProps, mapDispatchToProps)(CreatePoll);
+
+// Custom AlertBox
+class NewPollCreatedAlertBox extends React.Component {
+
+    // Constructor
+    constructor(props) {
+      super(props);
+    }
+
+    // Component render.
+    render() {
+
+      // Classes to toggle visibility of this component.
+      const toggleHiddenClass = classNames({
+        'hidden': this.props.pollId == null
+      });
+
+      return (
+        <div className={toggleHiddenClass}>
+          <article className="message is-success">
+            <div className="message-body">
+              <div>
+                Poll successfully created!
+              </div>
+
+              <div>
+                <Link to={'/view/poll/' + this.props.pollId}>Click here to view your poll.</Link>
+              </div>
+            </div>
+          </article>
+        </div>
+      )
+
+    }
+
+}
