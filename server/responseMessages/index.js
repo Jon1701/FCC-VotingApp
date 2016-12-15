@@ -40,6 +40,9 @@ const errorResponses = {
     VIEW_POLL: {
       INVALID_POLL_ID: response('INVALID_POLL_ID', 'Invalid Poll ID'),
       NO_POLL_FOUND: response('NO_POLL_FOUND', 'No poll found.')
+    },
+    BATCH_GET_POLLS: {
+      INVALID_PAGE_NUMBER: response('INVALID_PAGE_NUMBER', 'Page number must be a positive integer starting at 1.')
     }
 }
 
@@ -55,6 +58,9 @@ const successResponses = {
   },
   VIEW_POLL: {
     VIEW_RESULTS: response('VIEW_RESULTS', 'Results tallied.')
+  },
+  BATCH_GET_POLLS: {
+    POLLS_RETRIEVED: response('POLLS_RETRIEVED', 'Polls retrieved.')
   }
 }
 
