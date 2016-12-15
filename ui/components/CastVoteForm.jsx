@@ -7,6 +7,11 @@ import React from 'react';
 import AlertBox from 'components/AlertBox';
 
 ////////////////////////////////////////////////////////////////////////////////
+// React Router
+////////////////////////////////////////////////////////////////////////////////
+import { Link } from 'react-router';
+
+////////////////////////////////////////////////////////////////////////////////
 // Redux
 ////////////////////////////////////////////////////////////////////////////////
 import { connect } from 'react-redux';
@@ -82,8 +87,11 @@ class CastVoteForm extends React.Component {
     request.post('/api/auth/cast_vote', data, CONFIG_AXIOS)
     .then((res) => {
 
-      // Hide standard alertbox.
-      this.updateAlertBox('Vote successfully cast.', 'SUCCESS');
+      // Set alert box to type SUCCESS.
+      // A custom alert box with success message will be displayed.
+      this.setState({
+        alertBoxType: 'SUCCESS'
+      })
 
     }).catch((err) => {
 
@@ -119,6 +127,7 @@ class CastVoteForm extends React.Component {
       <div>
 
         <AlertBox message={this.state.alertBoxMessage} boxType={this.state.alertBoxType}/>
+        <VoteCastSuccess pollId={this.props.poll_id} boxType={this.state.alertBoxType}/>
 
         <h1 className='title'>{this.props.pollData.title}</h1>
 
@@ -140,7 +149,6 @@ class CastVoteForm extends React.Component {
 
 }
 
-
 // Maps state to props.
 const mapStateToProps = (state) => {
   return {
@@ -150,3 +158,39 @@ const mapStateToProps = (state) => {
 
 // Allow component access to Redux store.
 export default connect(mapStateToProps, null)(CastVoteForm);
+
+
+
+// Custom success message alertbox.
+class VoteCastSuccess extends React.Component {
+
+  // Component constructor.
+  constructor(props) {
+    super(props);
+  }
+
+  // Component render.
+  render() {
+
+    // Classes to toggle visibility of this component.
+    const toggleHiddenClass = classNames({
+      'hidden': this.props.boxType != 'SUCCESS' || this.props.boxType == null
+    });
+
+    return (
+      <div className={toggleHiddenClass}>
+        <article className="message is-success">
+          <div className="message-body">
+            <div>
+              Vote successfully cast.
+            </div>
+
+            <div>
+              <Link to={'/view/poll/' + this.props.pollId}>Click here to view poll results.</Link>
+            </div>
+          </div>
+        </article>
+      </div>
+    )
+  }
+}
