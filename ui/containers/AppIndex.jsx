@@ -3,6 +3,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 import React from 'react';
 
+// Components.
+import RecentPolls from 'components/RecentPolls';
+
 ////////////////////////////////////////////////////////////////////////////////
 // Component definition
 ////////////////////////////////////////////////////////////////////////////////
@@ -28,6 +31,8 @@ export default class AppIndex extends React.Component {
             <p>
               Voteify is a web-based application which enables you to create custom polls with live results.
             </p>
+
+            <RecentPolls username={null}/>
 
           </div>
         </div>
