@@ -3,28 +3,24 @@
 ////////////////////////////////////////////////////////////////////////////////
 import React from 'react';
 
-import { Link } from 'react-router';
+// Components.
+import UserDashboardWrapper from 'components/UserDashboardWrapper';
 
 ////////////////////////////////////////////////////////////////////////////////
 // Component definition
 ////////////////////////////////////////////////////////////////////////////////
 export default class Dashboard extends React.Component {
 
-  // Constructor.
+  // Component constructor.
   constructor(props) {
     super(props);
   }
 
-  // Render.
+  // Component Render.
   render() {
-
     return (
-      <div className="has-text-centered columns is-mobile">
-        <div className="column is-8 is-offset-2">
-          <div className="box">
-            Dashboard
-          </div>
-        </div>
+      <div>
+        <UserDashboardWrapper/>
       </div>
     )
   }

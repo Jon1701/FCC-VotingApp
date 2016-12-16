@@ -42,8 +42,18 @@ export default class RecentPolls extends React.Component {
   // Get poll data.
   getPollData(pageNum) {
 
+    // Switch API endpoints depending if username was provided or now.
+    let endpoint = null;
+
+    // Call correct endpoint.
+    if (this.props.username) {
+      endpoint = '/api/view/recent_user_polls/' + this.props.username + '/' + pageNum;
+    } else {
+      endpoint = '/api/view/recent_polls/' + pageNum;
+    }
+
     // GET request to batch retrieve recent polls.
-    axios.get('/api/view/recent_polls/' + pageNum, CONFIG_AXIOS).then((res) => {
+    axios.get(endpoint, CONFIG_AXIOS).then((res) => {
 
       // Store poll data in state.
       this.setState({
