@@ -74,9 +74,10 @@ const cast_vote = (req, res, next) => {
 
           // User has not voted, create a Vote document.
           const newVote = Vote({
-            username: username,
-            poll_id: pollId,
-            choice: userChoice
+            username: username,     // Username
+            poll_id: pollId,        // Poll ID
+            choice: userChoice,     // User choice
+            //creationDate          // Vote creation date.
           });
 
           // Store the Vote in the database.
@@ -85,8 +86,17 @@ const cast_vote = (req, res, next) => {
             // If an error occurred, return an error.
             if (err) { return next(RESPONSE.ERROR.DB.DB_ERROR); };
 
+            // Vote metadata.
+            let payload = {
+              pollID: result['poll_id'],  // Poll ID
+              voteID: result['_id'],      // Vote ID
+              username: username,         // Username
+              choice: result['choice'],   // Voted choice
+              creationDate: result['creationDate']  // Vote creation date.
+            }
+
             // Return response message on success, include the _id field in the response.
-            return res.send(Object.assign({}, RESPONSE.SUCCESS.POLL.POLL_CREATED, {'vote_id': result._id, 'poll_id': result.poll_id}));
+            return res.send(Object.assign({}, RESPONSE.SUCCESS.POLL.POLL_CREATED, {payload: payload}));
 
           });
         });
