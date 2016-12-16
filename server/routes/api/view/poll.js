@@ -62,55 +62,95 @@ const poll = (req, res, next) => {
             }         //
           }
         }
-      ], (err, result) => {
+      ], (err, aggResult) => {
 
         // Error check.
         if (err) { return next(RESPONSE.ERROR.DB.DB_ERROR); }
 
         // Check if results were tallied.
-        if (result.length > 0) {
+        if (aggResult.length > 0) {
 
-          // Votes were made to this poll, tally up results.
-          // Restructure the resulting document.
-          const newResult = {};
-          for (let i=0; i<result.length; i++) {
-            let choice = result[i]['_id'];  // Poll choice
-            let counts = result[i]['count'];// Choice count
+          // Get an array of all poll choices in the aggregated result.
+          const tallyPollChoices = aggResult.map((doc, idx, arr) => {
+            return doc['_id'];
+          });
 
-            // Store in newResult.
-            newResult[choice] = counts;
-          }
+          // Get an array of all poll choices in the poll.
+          const allPollChoices = resultPoll['choices'];
 
-          // Get poll title and creator.
-          const metadata = {
-            title: pollTitle,
-            author: pollCreator
+          // Corrected tally, including choices with 0 votes.
+          let tally = {};
+
+          // Total number of votes.
+          let numVotes = 0;
+
+          // Go through all poll choices.
+          for (let i=0; i<allPollChoices.length; i++) {
+
+            // Current poll choice from all poll choices.
+            let currentPollChoice = allPollChoices[i];
+
+            // Check if the poll choice is in the tally poll choices array.
+            if (tallyPollChoices.indexOf(currentPollChoice) == -1) {
+
+              // Current poll choice was not tallied, store it with a count of 0.
+              tally[currentPollChoice] = 0;
+
+            } else {
+
+              // If current poll choice is in the tally poll choices array.
+              // Look up the count in the aggregated result and store it.
+              for (let y=0; y<aggResult.length; y++) {
+
+                if (aggResult[y]['_id'] == currentPollChoice) {
+                  tally[currentPollChoice] = aggResult[y]['count'];
+
+                  // Increment total number of votes.
+                  numVotes += aggResult[y]['count'];
+                }
+
+              }
+
+            }// end if
+
+          }// end loop
+
+          // Get poll metadata.
+          const payload = {
+            pollID: resultPoll['_id'],  // Poll ID
+            title: pollTitle,           // Poll Title
+            choices: resultPoll['choices'], // Poll choices.
+            author: pollCreator,        // Poll creator.
+            tally: tally,              // Tally of votes.
+            numChoices: resultPoll['choices'].length, // Number of poll choices.
+            numVotes: numVotes          // Total number of votes cast.
           }
 
           // Return results to user.
-          return res.send(Object.assign({}, RESPONSE.SUCCESS.VIEW_POLL.VIEW_RESULTS, {poll: metadata, results: newResult}));
+          return res.send(Object.assign({}, RESPONSE.SUCCESS.VIEW_POLL.VIEW_RESULTS, {payload: payload}));
 
-        } else {
+        } else { // Poll has 0 votes.
 
-          // Restructure the resulting document.
-          const newResult = {};
-          for (let i=0; i<resultPoll.choices.length; i++) {
-
-            // Poll choice.
-            const choice = resultPoll.choices[i];
-
-            // Store poll choice with count 0.
-            newResult[choice] = 0;
+          // Tally the results.
+          // Since poll has 0 votes, just get the choices, and set counts to 0.
+          let tally = {};
+          for (let i=0; i<resultPoll['choices'].length; i++) {
+            tally[resultPoll['choices'][i]] = 0;
           }
 
-          // Get poll title and creator.
-          const metadata = {
-            title: pollTitle,
-            author: pollCreator
+          // Get poll metadata.
+          const payload = {
+            pollID: resultPoll['_id'],  // Poll ID
+            title: pollTitle,           // Poll Title
+            choices: resultPoll['choices'], // Poll choices.
+            author: pollCreator,        // Poll creator.
+            tally: tally,              // Tally of votes.
+            numChoices: resultPoll['choices'].length, // Number of poll choices.
+            numVotes: 0                 // Total number of votes cast.
           }
 
           // Return results to user.
-          return res.send(Object.assign({}, RESPONSE.SUCCESS.VIEW_POLL.VIEW_RESULTS, {poll: metadata, results: newResult}));
+          return res.send(Object.assign({}, RESPONSE.SUCCESS.VIEW_POLL.VIEW_RESULTS, {payload: payload}));
 
         }
 
