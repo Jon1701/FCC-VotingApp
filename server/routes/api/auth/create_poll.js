@@ -66,9 +66,10 @@ const create_poll = (req, res, next) => {
 
       // Create a new poll.
       const newPoll = Poll({
-        username: req.decoded.username,
-        title: title,
-        choices: filteredChoices
+        username: req.decoded.username,             // Username
+        title: title,                               // Poll title
+        choices: filteredChoices,                   // Poll choices
+        //creationDate                              // Poll creation date.
       });
 
       // Save the poll in the database.
@@ -79,8 +80,15 @@ const create_poll = (req, res, next) => {
           return next(RESPONSE.ERROR.DB.DB_ERROR);
         }
 
+        // Poll metadata.
+        let payload = {
+          pollID: result['_id'],                  // Poll ID
+          creationDate: result['creationDate'],   // Poll Creation Date
+          username: req.decoded.username          // Username
+        }
+
         // Return response message on success, include the _id field in the response.
-        return res.send(Object.assign({}, RESPONSE.SUCCESS.POLL.POLL_CREATED, {'poll_id': result._id}));
+        return res.send(Object.assign({}, RESPONSE.SUCCESS.POLL.POLL_CREATED, {payload: payload}));
 
       });
 
