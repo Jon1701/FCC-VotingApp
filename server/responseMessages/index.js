@@ -47,6 +47,9 @@ const errorResponses = {
 }
 
 const successResponses = {
+  TOKEN: {
+    TOKEN_GENERATED: response('TOKEN_GENERATED', 'Token successfully generated.')
+  },
   SIGNUP: {
     USER_CREATED: response('USER_CREATED', 'User successfully created.')
   },
