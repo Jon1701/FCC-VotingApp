@@ -122,6 +122,12 @@ class CastVoteForm extends React.Component {
       )
     });
 
+    // Control visibility of poll title by props.
+    const controlHidden = classNames({
+      'title': true,
+      'hidden': this.props.showTitle == false
+    })
+
     // Component render.
     return (
       <div>
@@ -129,7 +135,7 @@ class CastVoteForm extends React.Component {
         <AlertBox message={this.state.alertBoxMessage} boxType={this.state.alertBoxType}/>
         <VoteCastSuccess pollId={this.props.poll_id} boxType={this.state.alertBoxType}/>
 
-        <h1 className='title'>{this.props.pollData.title}</h1>
+        <h1 className={controlHidden}>{this.props.pollData.title}</h1>
 
         <form>
           <div>

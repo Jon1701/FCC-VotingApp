@@ -55,6 +55,7 @@ export default class DisplayPollResults extends React.Component {
 
       // Convert tally object to an array of arrays.
       // Each array should consists of a choice and a count.
+
       for (let i=0; i<Object.keys(tally).length; i++) {
 
         // Extract a choice and count from the tally object.
