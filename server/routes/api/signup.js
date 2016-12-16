@@ -62,15 +62,21 @@ const signup = (req, res, next) => {
       });
 
       // Save the user.
-      newUser.save((err) => {
+      newUser.save((err, newUserResult) => {
 
         // Error check.
         if (err) {
           return next(RESPONSE.ERROR.DB.DB_ERROR);
         }
 
+        // Payload.
+        let payload = {
+          username: username,
+          userID: newUserResult['_id']
+        }
+
         // Return success message.
-        return res.send(RESPONSE.SUCCESS.SIGNUP.USER_CREATED);
+        return res.send(Object.assign({}, RESPONSE.SUCCESS.SIGNUP.USER_CREATED, {payload: payload}));
 
       });
 
