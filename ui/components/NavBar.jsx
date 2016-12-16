@@ -73,6 +73,7 @@ const NotAuthenticated = (props) => (
 const Authenticated = (props) => (
   <div className="nav-center">
     <Link to='/auth/create_poll' className="nav-item">Create Poll</Link>
-    <Link className="nav-item">{props.username}</Link>
+    <Link to='/auth' className="nav-item">Dashboard</Link>
+    <Link to='/auth' className="nav-item">{props.username}</Link>
   </div>
 )
