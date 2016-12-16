@@ -64,11 +64,15 @@ const login = (req, res, next) => {
           {expiresIn: APP_CONFIG.JWT_TOKEN_EXPIRATION_SECONDS}
         );
 
+        // User metadata
+        let payload = {
+          token: token,         // JSON web token
+          username: username,   // Username
+          userID: result['_id'] // User ID
+        }
+
         // Send jsonwebtoken as response.
-        return res.json({
-          message: 'Token generated',
-          token: token
-        });
+        return res.json(Object.assign({}, RESPONSE.SUCCESS.TOKEN.TOKEN_GENERATED, {payload: payload}));
 
       } else {
 
