@@ -8,8 +8,7 @@
   },
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack -p",
-    "ui": "cross-env NODE_ENV=development webpack && webpack-dev-server --quiet --hot --progress --inline --history-api-fallback",
-    "server": "gulp"
+    "dev": "gulp"
   },
   "repository": {
     "type": "git",
@@ -56,8 +55,7 @@
     "rfr": "^1.2.3",
     "sass-loader": "^4.0.2",
     "style-loader": "^0.13.1",
-    "webpack": "^1.14.0",
-    "webpack-dev-server": "^1.16.2",
+    "webpack-stream": "^3.2.0",
     "webpack-uglify-js-plugin": "^1.1.9"
   }
 }
