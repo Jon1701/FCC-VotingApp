@@ -5,7 +5,6 @@ const axios = require('axios');
 
 // Axios base config.
 const config = {
-  'baseURL': 'http://localhost:8080/',
   'headers': {
     'Content-Type': 'application/json'
   }
