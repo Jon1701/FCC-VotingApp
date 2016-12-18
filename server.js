@@ -4,7 +4,6 @@
 const rfr = require('rfr');       // Root relative paths.
 const morgan = require('morgan'); // Log requests to console.
 const verifyJwt = rfr('/server/middleware/verifyJsonWebToken'); // Authentication middleware.
-const cors = require('cors'); // Cross-origin requests.
 const path = require('path');
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -12,11 +11,6 @@ const path = require('path');
 ////////////////////////////////////////////////////////////////////////////////
 const express = require('express');
 const app = express();
-
-// Allow cross origin requests.
-app.use(cors({
-  origin: 'http://localhost:8080'
-}));
 
 // Use morgan to log requests to console.
 app.use(morgan('dev'));
