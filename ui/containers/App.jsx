@@ -3,10 +3,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 import React from 'react';
 
+// Components
+import NavigationBar from 'components/NavigationBar'; // Navigation Bar.
+
 ////////////////////////////////////////////////////////////////////////////////
 // Component definition
 ////////////////////////////////////////////////////////////////////////////////
-
 export default class App extends React.Component {
 
   // Constructor.
@@ -19,6 +21,9 @@ export default class App extends React.Component {
     return (
       <div>
 
+        <NavigationBar/>
+
+        {/* Render child components. */}
         {this.props.children}
 
       </div>
