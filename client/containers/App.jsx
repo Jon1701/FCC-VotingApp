@@ -31,8 +31,15 @@ class App extends React.Component {
   componentWillMount() {
 
     // Read token from session storage, store in application state.
-    this.props.storeToken(sessionStorage.getItem('token'));
-    
+    // Get a string representation of the token stored in session storage.
+    let token = String(sessionStorage.getItem('token'));
+
+    // If the token is a null string, return null value, if not, return token.
+    token = token == "null" ? null : token;
+
+    // Store token in application state.
+    this.props.storeToken(token);
+
   }
 
   // Render.
