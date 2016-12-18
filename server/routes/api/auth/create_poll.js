@@ -60,7 +60,7 @@ const create_poll = (req, res, next) => {
 
       // Before creating the poll, do a final check to see if the number of filtered
       // choices is between 2 and 10. If not, return an error.
-      if (!(choices.length >= 2 && choices.length <= 10)) {
+      if (!(filteredChoices.length >= 2 && filteredChoices.length <= 10)) {
         return next(RESPONSE.ERROR.POLL.INSUFFICIENT_POLL_ANSWERS);
       }
 
