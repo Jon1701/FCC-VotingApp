@@ -70,7 +70,7 @@ var config = {
         exclude: /node_modules/,  // Do not apply transformations to npm modules.
         loader: 'babel-loader',
         query: {
-          presets: ['react', 'es2015'],
+          presets: ['react', 'latest'],
           cacheDirectory: true
         }
       },
