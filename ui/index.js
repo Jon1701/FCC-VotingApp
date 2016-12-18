@@ -12,7 +12,7 @@ import LoginPage from 'containers/LoginPage'; // Login page
 ////////////////////////////////////////////////////////////////////////////////
 // React Router
 ////////////////////////////////////////////////////////////////////////////////
-import { Router, Route, IndexRoute, hashHistory } from 'react-router';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 ////////////////////////////////////////////////////////////////////////////////
 // Redux
@@ -24,24 +24,43 @@ import { createStore } from 'redux';
 import reducers from 'reducers/index.js';
 let store = createStore(reducers);
 
+// Function to require authentication when accessing a route.
+const requireAuth = (nextState, replace) => {
+
+  // Get token from the redux state.
+  const token = store.getState().token;
+
+  // If no token is in the redux state, redirect to the login page.
+  // When done authenticating, proceed to original route accessed.
+  if (!token) {
+    replace({
+      pathname: '/login',
+      state: {nextPathname: nextState.location.pathname}
+    });
+  }
+
+}
+
 // Subscribe to state changes.
 store.subscribe(() => {
   console.log(store.getState());
 });
 
-// Include stylesheets.
+// Application stylesheet.
 require("stylesheets/stylesheet.scss");
 
 // Application Container.
 // Contains redux store, and client routes.
 const ApplicationUIContainer = (
   <Provider store={store}>
-    <Router history={hashHistory}>
+    <Router history={browserHistory}>
       <Route path='/' component={App}>
         <Route path='/login' component={LoginPage}/>
-        <Route path='/create_poll' component={Dummy}/>
         <Route path='/signup' component={Dummy}/>
+
+        <Route path='/create_poll' onEnter={requireAuth} component={Dummy}/>
         <Route path='/auth/dashboard' component={Dummy}/>
+
       </Route>
     </Router>
   </Provider>
