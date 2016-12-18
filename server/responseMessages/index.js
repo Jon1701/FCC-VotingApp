@@ -14,7 +14,8 @@ const errorResponses = {
       MISSING_CREDENTIALS: response('MISSING_CREDENTIALS', 'Bother username and password are required.'),
       INVALID_USERNAME: response('INVALID_USERNAME', 'Username can only contain letters and numbers (dashes and underscores are allowed), between 8 and 25 characters long.'),
       INVALID_PASSWORD:  response('INVALID_PASSWORD', 'Password can only contain letters and numbers (dashes and underscores are allowed), between 8 and 50 characters long.'),
-      EXISTING_USER:  response('EXISTING_USER', 'A user with that username already exists.')
+      EXISTING_USER:  response('EXISTING_USER', 'A user with that username already exists.'),
+      PASSWORDS_NOT_MATCHING: response('PASSWORDS_NOT_MATCHING', 'Passwords do not match')
     },
     TOKEN: {
       MISSING_TOKEN: response('MISSING_TOKEN', 'A login token is required.'),
