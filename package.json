@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "bin": {
-    "gulp": "./bin/gulp"
-  },
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack -p",
     "client": "cross-env NODE_ENV=development webpack && webpack-dev-server --quiet --hot --progress --inline",
