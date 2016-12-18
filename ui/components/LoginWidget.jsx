@@ -55,7 +55,10 @@ class LoginWidget extends React.Component {
   }
 
   // Method to handle form submission.
-  handleFormSubmit() {
+  handleFormSubmit(e) {
+
+    // Prevent default form action.
+    e.preventDefault();
 
     ////////////////////////////////////////////////////////////////////////////
     ///////////////////////////    DEBUG     ///////////////////////////////////
@@ -98,7 +101,10 @@ class LoginWidget extends React.Component {
   }
 
   // Method to handle form reset.
-  handleFormReset() {
+  handleFormReset(e) {
+
+    // Prevent default form action.
+    e.preventDefault();
 
     // Clear all fields.
     this.refs.inputUsername.value = '';
