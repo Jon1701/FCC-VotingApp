@@ -6,7 +6,7 @@ var path = require('path');
 
 // Folder paths
 var PATHS = {
-  SRC: path.join(__dirname, 'ui/'),
+  SRC: path.join(__dirname, 'client/'),
   DEST: path.join(__dirname, 'dist/'),
   MODULES: path.join(__dirname, 'node_modules/')
 }

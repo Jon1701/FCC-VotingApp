@@ -1,0 +1,7 @@
+SCSS files go inside this folder.
+
+Can be accessed within a React Component by:
+
+require('stylesheets/filename.scss');
+
+since stylesheets/ is an alias to a root path defined in webpack.config.js.
