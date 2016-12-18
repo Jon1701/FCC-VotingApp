@@ -16,10 +16,15 @@ import { bindActionCreators } from 'redux';
 import { storeToken } from 'actions/index';
 
 ////////////////////////////////////////////////////////////////////////////////
+// React Router
+////////////////////////////////////////////////////////////////////////////////
+import { withRouter } from 'react-router';  // Allows component to be aware of React Router
+
+////////////////////////////////////////////////////////////////////////////////
 // Other
 ////////////////////////////////////////////////////////////////////////////////
 
-const request = require('config/request');  // Make HTTP GET/POST requests.
+const request = require('config/request');  // Make HTTP GET/POST requests
 
 ////////////////////////////////////////////////////////////////////////////////
 // Component definition
@@ -89,6 +94,15 @@ class LoginWidget extends React.Component {
 
         // Set success message.
         this.setNotification('SUCCESS', 'You have successfully logged in!');
+
+        // Redirect to next route if user tried to access authenticated resource
+        // without logging in first.
+        const { location } = this.props;
+        if (location.state && location.state.nextPathname) {
+          this.props.router.replace(location.state.nextPathname);
+        } else {
+          this.props.router.replace('/');
+        }
 
       })
       .catch((err) => {
@@ -160,4 +174,4 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 // Allow component access to Redux store.
-export default connect(mapStateToProps, mapDispatchToProps)(LoginWidget);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(LoginWidget));
