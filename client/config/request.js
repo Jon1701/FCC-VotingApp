@@ -17,7 +17,13 @@ const get = (url) => {
 }
 
 // HTTP POST request wrapper.
-const post = (url, body) => {
+const post = (url, body, token=null) => {
+
+  // Store JSON web token in header if provided.
+  if (token) {
+    config['headers']['x-access-token'] = token;
+  }
+
   return axios.post(url, body, config);
 }
 
