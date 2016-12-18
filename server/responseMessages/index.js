@@ -26,7 +26,7 @@ const errorResponses = {
       INVALID_TITLE: response('INVALID_TITLE', 'Poll title must be between 8 and 1000 characters long.'),
       INVALID_CHOICE: response('INVALID_CHOICE', 'Poll answers must be between 1 and 50 characters long.'),
       NO_TITLE: response('NO_TITLE', 'Poll title is required.'),
-      INSUFFICIENT_POLL_ANSWERS: response('INSUFFICIENT_POLL_ANSWERS', 'At least two Poll answers must be provided, to a maximum of 10.'),
+      INSUFFICIENT_POLL_ANSWERS: response('INSUFFICIENT_POLL_ANSWERS', 'At least two unique poll answers must be provided, to a maximum of 10.'),
       NO_POLL_FOUND: response('NO_POLL_FOUND', 'No poll with given Poll ID could be found.')
     },
     DB: {
