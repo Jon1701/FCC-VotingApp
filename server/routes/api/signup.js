@@ -26,20 +26,31 @@ const User = rfr('/server/models/User'); // Database model for a User.
 const signup = (req, res, next) => {
 
   // Get username and password.
-  const username = req.body.username;
-  const password = req.body.password;
+  const username = req.body.username;   // Username
+  const password1 = req.body.password1; // Password
+  const password2 = req.body.password2; // Confirm password
 
   // Check if username and password are provided.
-  if (!username || !password) {
+  if (!username || (!password1 && !password2)) {
     return next(RESPONSE.ERROR.SIGNUP.MISSING_CREDENTIALS);
   }
 
   // Check to see if the username and password are valid.
   if (!REGEX.username.test(username)) {
     return next(RESPONSE.ERROR.SIGNUP.INVALID_USERNAME);
-  } else if (!REGEX.password.test(password)) {
+  } else if (!REGEX.password.test(password1)) {
+    return next(RESPONSE.ERROR.SIGNUP.INVALID_PASSWORD);
+  } else if (!REGEX.password.test(password2)) {
     return next(RESPONSE.ERROR.SIGNUP.INVALID_PASSWORD);
   }
+
+  // Check if the both passwords are the same.
+  if (password1 != password2) {
+    return next(RESPONSE.ERROR.SIGNUP.PASSWORDS_NOT_MATCHING);
+  }
+
+  // Use password1 for registration.
+  let password = password1;
 
   // Search the collection by username.
   User.find({username: username}, (err, results) => {
