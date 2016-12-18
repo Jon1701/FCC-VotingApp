@@ -26,7 +26,10 @@ export default class Notification extends React.Component {
     return (
       <div className={myStyles}>
         <button className="delete" onClick={this.props.handleClose}/>
+        
         {this.props.notification.message}
+
+        <p>{this.props.link}</p>
       </div>
     )
 
