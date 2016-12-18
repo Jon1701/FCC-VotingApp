@@ -9,6 +9,7 @@ import Dummy from 'containers/Dummy'; // Dummy container/component
 import App from 'containers/App';     // UI Container
 import LoginPage from 'containers/LoginPage'; // Login page
 import LogoutPage from 'containers/LogoutPage'; // Logout page
+import SignupPage from 'containers/SignupPage'; // Signup page
 
 ////////////////////////////////////////////////////////////////////////////////
 // React Router
@@ -59,7 +60,7 @@ const ApplicationUIContainer = (
         <Route path='/login' component={LoginPage}/>
         <Route path='/logout' component={LogoutPage}/>
 
-        <Route path='/signup' component={Dummy}/>
+        <Route path='/signup' component={SignupPage}/>
         <Route path='/dashboard' component={Dummy}/>
         <Route path='/create_poll' onEnter={requireAuth} component={Dummy}/>
       </Route>
