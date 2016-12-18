@@ -6,6 +6,7 @@ const jwt = (state=null, action) => {
     // Store JSON web token in state.
     case 'STORE_TOKEN':
 
+      // Store token in session storage.
       sessionStorage.setItem('token', action.payload)
 
       // Store token and username in state.
@@ -13,6 +14,10 @@ const jwt = (state=null, action) => {
 
     // Clear JSON web token from state.
     case 'REMOVE_TOKEN':
+
+      // Remove token from session storage.
+      sessionStorage.removeItem('token')
+
       return null;
 
   }
