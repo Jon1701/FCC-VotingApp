@@ -3,9 +3,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 import React from 'react';
 
-// Components.
-import LogoutButton from 'components/LogoutButton';
-
 ////////////////////////////////////////////////////////////////////////////////
 // React Router
 ////////////////////////////////////////////////////////////////////////////////
@@ -15,10 +12,6 @@ import { Link } from 'react-router';
 // Redux
 ////////////////////////////////////////////////////////////////////////////////
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
-// Actions.
-import { removeToken } from 'actions/index';
 
 ////////////////////////////////////////////////////////////////////////////////
 // Component definition
@@ -57,7 +50,7 @@ class NavigationBar extends React.Component {
         </div>
 
         {/* Different navigation buttons for authenticated and unauthenticated users. */}
-        {this.props.token ? <LoggedIn username={this.getUsername(this.props.token)} removeToken={this.props.removeToken}/> : <NotLoggedIn/>}
+        {this.props.token ? <LoggedIn username={this.getUsername(this.props.token)}/> : <NotLoggedIn/>}
       </nav>
     )
   }
@@ -71,16 +64,8 @@ const mapStateToProps = (state) => {
   }
 }
 
-// Allow access of dispatch actions as props.
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    removeToken: removeToken
-  }, dispatch);
-}
-
-
 // Allow component access to Redux store.
-export default connect(mapStateToProps, mapDispatchToProps)(NavigationBar);
+export default connect(mapStateToProps, null)(NavigationBar);
 
 ////////////////////////////////////////////////////////////////////////////////
 // Presentational Components
@@ -99,6 +84,6 @@ const LoggedIn = (props) => (
   <div className="nav-center">
     <Link to="/create_poll" className="nav-item">Create Poll</Link>
     <Link to="/dashboard" className="nav-item">{props.username}</Link>
-    <Link onClick={props.removeToken} className="nav-item">Logout</Link>
+    <Link to="/logout" className="nav-item">Logout</Link>
   </div>
 )

@@ -8,6 +8,7 @@ import ReactDOM from 'react-dom';
 import Dummy from 'containers/Dummy'; // Dummy container/component
 import App from 'containers/App';     // UI Container
 import LoginPage from 'containers/LoginPage'; // Login page
+import LogoutPage from 'containers/LogoutPage'; // Logout page
 
 ////////////////////////////////////////////////////////////////////////////////
 // React Router
@@ -56,11 +57,11 @@ const ApplicationUIContainer = (
     <Router history={browserHistory}>
       <Route path='/' component={App}>
         <Route path='/login' component={LoginPage}/>
+        <Route path='/logout' component={LogoutPage}/>
+
         <Route path='/signup' component={Dummy}/>
-
+        <Route path='/dashboard' component={Dummy}/>
         <Route path='/create_poll' onEnter={requireAuth} component={Dummy}/>
-        <Route path='/auth/dashboard' component={Dummy}/>
-
       </Route>
     </Router>
   </Provider>
