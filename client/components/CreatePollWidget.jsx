@@ -173,7 +173,7 @@ export default class CreatePollWidget extends React.Component {
     }
 
     return (
-      <form id="formCreatePoll" onSubmit={this.handleFormSubmit}>
+      <form id="formCreatePoll">
 
         {/* Display a notification on warning/error. */}
         {this.state.notification && (this.state.notification.type == 'DANGER' || this.state.notification.type == 'WARNING') ? <Notification notification={this.state.notification} handleClose={this.clearNotification}/> : <span/>}
@@ -196,9 +196,10 @@ export default class CreatePollWidget extends React.Component {
         {/* Generate Poll Choice <input/> boxes */}
         {generatePollChoiceInputs()}
 
+        <br/>
+
         <p className="control">
-          <button className="button is-primary">Submit</button>
-          <button className="button is-primary" onClick={this.handleFormReset}>Reset</button>
+          <a className="button is-primary is-medium has-text-centered is-fullwidth"  onClick={this.handleFormSubmit}>Submit</a>
         </p>
       </form>
     )

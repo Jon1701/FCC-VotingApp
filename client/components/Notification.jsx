@@ -16,7 +16,7 @@ export default class Notification extends React.Component {
 
     // Classes to control style of <Notification/>.
     const myStyles = classNames({
-      'notification': true,
+      'message': true,
       'has-text-centered': true,
       'is-danger': this.props.notification.type == 'DANGER',
       'is-success': this.props.notification.type == 'SUCCESS',
@@ -25,13 +25,13 @@ export default class Notification extends React.Component {
     });
 
     return (
-      <div className={myStyles}>
-        <button className="delete" onClick={this.props.handleClose}/>
-
-        {this.props.notification.message}
-
-        <p>{this.props.link}</p>
-      </div>
+      <article className={myStyles} onClick={this.props.handleClose}>
+        <div className="message-body">
+          {this.props.notification.message}
+          <br/>
+          {this.props.link}
+        </div>
+      </article>
     )
 
   }

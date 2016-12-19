@@ -126,6 +126,9 @@ class LoginWidget extends React.Component {
     return (
       <form>
 
+        {/* Display a notification on error/success. */}
+        {this.state.notification ? <Notification notification={this.state.notification} handleClose={this.clearNotification}/> : <span/>}
+
         <label className="label">Username:</label>
         <p className="control">
           <input className="input" ref="inputUsername" type="text" minLength="8" maxLength="25"/>
@@ -136,13 +139,11 @@ class LoginWidget extends React.Component {
           <input className="input" ref="inputPassword" type="password" minLength="8" maxLength="50"/>
         </p>
 
-        <p className="control">
-          <button className="button is-primary" onClick={this.handleFormSubmit}>Submit</button>
-          <button className="button is-primary" onClick={this.handleFormReset}>Clear Form</button>
-        </p>
+        <br/>
 
-        {/* Display a notification on error/success. */}
-        {this.state.notification ? <Notification notification={this.state.notification} handleClose={this.clearNotification}/> : <span/>}
+        <div className="control">
+          <a className="button is-primary is-medium has-text-centered is-fullwidth" onClick={this.handleFormSubmit}>Submit</a>
+        </div>
 
       </form>
     )

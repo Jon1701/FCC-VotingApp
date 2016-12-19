@@ -24,7 +24,7 @@ export default class LoginPage extends React.Component {
         <div className="column is-10 is-offset-1">
           <div className="box">
 
-            <h1 className="title has-text-centered">Log in to create and vote on polls!</h1>
+            <h3 className="title is-3 has-text-centered">Log in to create and vote on polls!</h3>
 
             <div className="has-text-centered">
               <LoginWidget/>

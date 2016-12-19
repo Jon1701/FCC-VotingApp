@@ -104,6 +104,12 @@ export default class SignupWidget extends React.Component {
     return (
       <form>
 
+        {/* Display a notification on error */}
+        {this.state.notification && this.state.notification.type == 'DANGER' ? <Notification notification={this.state.notification} handleClose={this.clearNotification}/> : <span/>}
+
+        {/* Display a notification on success */}
+        {this.state.notification && this.state.notification.type == 'SUCCESS' ? <Notification notification={this.state.notification} handleClose={this.clearNotification} link={<Link to="/login">Click here to log in.</Link>}/> : <span/>}
+
         <label className="label">Username:</label>
         <p className="control">
           <input className="input" ref="inputUsername" type="text" minLength="8" maxLength="25"/>
@@ -119,16 +125,11 @@ export default class SignupWidget extends React.Component {
           <input className="input" ref="inputPassword2" type="password" minLength="8" maxLength="50"/>
         </p>
 
+        <br/>
+
         <p className="control">
-          <button className="button is-primary" onClick={this.handleFormSubmit}>Submit</button>
-          <button className="button is-primary" onClick={this.handleFormReset}>Clear Form</button>
+          <a className="button is-primary is-medium has-text-centered is-fullwidth" onClick={this.handleFormSubmit}>Submit</a>
         </p>
-
-        {/* Display a notification on error */}
-        {this.state.notification && this.state.notification.type == 'DANGER' ? <Notification notification={this.state.notification} handleClose={this.clearNotification}/> : <span/>}
-
-        {/* Display a notification on success */}
-        {this.state.notification && this.state.notification.type == 'SUCCESS' ? <Notification notification={this.state.notification} handleClose={this.clearNotification} link={<Link to="/login">Click here to log in.</Link>}/> : <span/>}
 
       </form>
     )

@@ -12,22 +12,13 @@
   width: 50% !important;
 }
 
-.hidden {
-  display: none;
-}
-
 .nav {
   margin-bottom: 20px;
-}
-
-// Add some margin to the top fo the Recently Created Polls widget on the
-// app homepage.
-#home-recently-created-polls {
-  margin-top: 20px;
 }
 
 .login-notify {
   margin-top: 20px;
 }
+
 // Import Bulma.
 @import '_bulma';

@@ -24,7 +24,7 @@ export default class SignupPage extends React.Component {
         <div className="column is-10 is-offset-1">
           <div className="box">
 
-            <h1 className="title has-text-centered">Sign up to create and vote on polls!</h1>
+            <h1 className="title is-3 has-text-centered">Sign up to create and vote on polls!</h1>
 
             <div className="has-text-centered">
               <SignupWidget/>
