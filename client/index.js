@@ -12,6 +12,7 @@ import LogoutPage from 'containers/LogoutPage'; // Logout page
 import SignupPage from 'containers/SignupPage'; // Signup page
 import HomePage from 'containers/HomePage'; // Homepage for / route.
 import CreatePollPage from 'containers/CreatePollPage'; // Homepage for / route.
+import ViewPollPage from 'containers/ViewPollPage'; // Homepage for /view/poll/:pollID route.
 
 ////////////////////////////////////////////////////////////////////////////////
 // React Router
@@ -64,7 +65,7 @@ const ApplicationUIContainer = (
         <Route path='/logout' component={LogoutPage}/>
         <Route path='/signup' component={SignupPage}/>
         <Route path='/create_poll' onEnter={requireAuth} component={CreatePollPage}/>
-        <Route path='/view/poll/:pollID' component={Dummy}/>
+        <Route path='/view/poll/:pollID' component={ViewPollPage}/>
         <Route path='/dashboard' component={Dummy}/>
       </Route>
     </Router>
