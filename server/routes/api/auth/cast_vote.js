@@ -96,7 +96,7 @@ const cast_vote = (req, res, next) => {
             }
 
             // Return response message on success, include the _id field in the response.
-            return res.send(Object.assign({}, RESPONSE.SUCCESS.POLL.POLL_CREATED, {payload: payload}));
+            return res.send(Object.assign({}, RESPONSE.SUCCESS.CAST_VOTE.VOTE_SUCCESSFUL, {payload: payload}));
 
           });
         });
