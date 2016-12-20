@@ -91,8 +91,19 @@ export default class BatchViewPolls extends React.Component {
     pageNum = String(pageNum);
     perPage = String(perPage);
 
+    // Build a query string containing the username parameter.
+    const userNameQueryString = (username=this.props.username) => {
+      if (username) {
+        return '&username=' + username;
+      } else {
+        return '';
+      }
+    }
+
+    console.log(userNameQueryString());
+
     // Make HTTP GET request to server.
-    request.get('/api/batch/get_polls?sort=' + order + '&pageNum=' + pageNum + '&perPage=' + perPage)
+    request.get('/api/batch/get_polls?sort=' + order + '&pageNum=' + pageNum + '&perPage=' + perPage + userNameQueryString())
       .then((res) => {
 
         // Store poll data in local state.
