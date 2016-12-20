@@ -1,18 +1,16 @@
-// Width 100%.
+// Set width to 100%.
 .width-100 {
   width: 100%;
 }
 
+// Set width to 50%.
 .width-50 {
   width: 50% !important;
 }
 
+// Add a little bit of margin below the navigation bar.
 .nav {
   margin-bottom: 20px;
-}
-
-.login-notify {
-  margin-top: 20px;
 }
 
 // Override bulma.io variables.
