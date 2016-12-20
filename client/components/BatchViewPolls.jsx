@@ -100,8 +100,6 @@ export default class BatchViewPolls extends React.Component {
       }
     }
 
-    console.log(userNameQueryString());
-
     // Make HTTP GET request to server.
     request.get('/api/batch/get_polls?sort=' + order + '&pageNum=' + pageNum + '&perPage=' + perPage + userNameQueryString())
       .then((res) => {
