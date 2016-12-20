@@ -29,8 +29,8 @@ export default class ViewPollWidget extends React.Component {
 
     // Bind methods to component instance.
     this.getPollData = this.getPollData.bind(this);
-    this.setNotification = require('common/notifyFunctions').setNotification.bind(this);     // Set notification.
-    this.clearNotification = require('common/notifyFunctions').clearNotification.bind(this); // Clear notification.
+    this.setNotification = this.setNotification.bind(this);     // Set notification.
+    this.clearNotification = this.clearNotification.bind(this); // Clear notification.
   }
 
   // Method to set the Notification panel.
