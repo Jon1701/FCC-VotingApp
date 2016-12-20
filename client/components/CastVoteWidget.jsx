@@ -20,7 +20,7 @@ import { Link } from 'react-router';
 ////////////////////////////////////////////////////////////////////////////////
 // Other
 ////////////////////////////////////////////////////////////////////////////////
-const request = require('config/request');  // Make HTTP GET/POST requests
+const request = require('common/request');  // Make HTTP GET/POST requests
 
 import classNames from 'classnames';
 

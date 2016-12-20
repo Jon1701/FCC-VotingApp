@@ -13,7 +13,7 @@ import { Link } from 'react-router';
 ////////////////////////////////////////////////////////////////////////////////
 
 // External libraries.
-const request = require('config/request');  // Make HTTP GET/POST requests
+const request = require('common/request');  // Make HTTP GET/POST requests
 const serialize = require('form-serialize'); // Form serialization library.
 
 ////////////////////////////////////////////////////////////////////////////////

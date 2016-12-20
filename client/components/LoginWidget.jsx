@@ -24,7 +24,7 @@ import { withRouter } from 'react-router';  // Allows component to be aware of R
 // Other
 ////////////////////////////////////////////////////////////////////////////////
 
-const request = require('config/request');  // Make HTTP GET/POST requests
+const request = require('common/request');  // Make HTTP GET/POST requests
 
 ////////////////////////////////////////////////////////////////////////////////
 // Component definition
