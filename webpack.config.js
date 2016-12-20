@@ -7,7 +7,7 @@ var path = require('path');
 // Folder paths
 var PATHS = {
   SRC: path.join(__dirname, '/client/'),
-  DEST: path.join(__dirname, '/dist/'),
+  DEST: path.join(__dirname, 'dist'),
   MODULES: path.join(__dirname, 'node_modules/')
 }
 
@@ -25,7 +25,7 @@ var config = {
   // Output directory and filename for bundled JavaScript.
   output: {
     path: PATHS.DEST,
-    filename: '/js/app.js'
+    filename: '/js/app.js',
   },
 
   // Resolve paths to files and folders which can be used by Webpack.
