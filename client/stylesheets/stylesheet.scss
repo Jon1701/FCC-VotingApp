@@ -20,5 +20,8 @@
   margin-top: 20px;
 }
 
+// Override bulma.io variables.
+$primary: #6441A4;
+
 // Import Bulma.
 @import '~bulma/bulma';
