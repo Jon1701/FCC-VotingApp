@@ -1,5 +1,5 @@
 {
-  "name": "voting-app",
+  "name": "voteify",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Jon1701/VotingApp.git"
+    "url": "git+https://github.com/Jon1701/Voteify.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Jon1701/VotingApp/issues"
+    "url": "https://github.com/Jon1701/Voteify/issues"
   },
-  "homepage": "https://github.com/Jon1701/VotingApp#readme",
+  "homepage": "https://github.com/Jon1701/Voteify#readme",
   "dependencies": {
     "axios": "^0.15.3",
     "babel": "^6.5.2",
