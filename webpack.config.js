@@ -52,7 +52,8 @@ var config = {
       'stylesheets': path.join(PATHS.SRC, 'stylesheets/'),
       'json': path.join(PATHS.SRC, 'media/data/'),
       'images': path.join(PATHS.SRC, 'media/images/'),
-      'config': path.join(PATHS.SRC, 'config/')
+      'config': path.join(PATHS.SRC, 'config/'),
+      'common': path.join(PATHS.SRC, 'common/')
 
     }
   },
