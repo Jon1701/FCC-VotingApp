@@ -39,6 +39,9 @@ apiRoutes.post('/signup', rfr('/server/routes/api/signup'));
 // View poll
 apiRoutes.get('/view/poll/:poll_id', rfr('/server/routes/api/view/poll'));
 
+// Batch get polls
+apiRoutes.get('/batch/get_polls/', rfr('/server/routes/api/batch/polls'));
+
 ////////////////////////////////////////////////////////////////////////////////
 // Authenticated routes: /api/auth
 ////////////////////////////////////////////////////////////////////////////////
