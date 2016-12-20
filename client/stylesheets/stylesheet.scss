@@ -8,13 +8,37 @@
   width: 50% !important;
 }
 
-// Add a little bit of margin below the navigation bar.
-.nav {
-  margin-bottom: 20px;
-}
-
 // Override bulma.io variables.
 $primary: #6441A4;
 
 // Import Bulma.
 @import '~bulma/bulma';
+
+// Define font: Lobster
+@font-face {
+  font-family: "Lobster";
+  src: url("../media/fonts/Lobster-Regular.ttf");
+}
+
+.font-lobster {
+  font-family: "Lobster";
+}
+
+// Add a little bit of margin below the navigation bar.
+.nav {
+  margin-bottom: 20px;
+  min-height: 45px;
+}
+
+
+// Customize navbar brand size and font.
+.is-brand {
+  font-family: "Lobster";
+  font-size: 2em;
+}
+
+// Customize navbar item dimensions.
+.nav-item {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
