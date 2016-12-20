@@ -30,7 +30,7 @@ class HomePage extends React.Component {
 
           <div className="box">
 
-            <h1 className="title is-1">Voteify</h1>
+            <h1 className="title is-1 font-lobster">Voteify</h1>
 
             <h5 className="subtitle is-5">A FreeCodeCamp project</h5>
 
