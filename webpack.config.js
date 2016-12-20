@@ -90,7 +90,7 @@ var config = {
       // Images
       //////////////////////////////////////////////////////////////////////////
       {
-        test: /\.(jpe?g|png|gif|svg)$/i,
+        test: /\.(jpe?g|png|gif)$/i,
         exclude: /node_modules/,
         loader: 'file-loader?name=/media/images/[name].[ext]'
       },
@@ -110,7 +110,7 @@ var config = {
       // Fonts.
       //////////////////////////////////////////////////////////////////////////
       {
-        test: /\.(eot|ttf|woff|woff2)$/,
+        test: /\.(eot|svg|ttf|woff|woff2)$/,
         loader: 'url-loader?limit=50000'
       },
       //////////////////////////////////////////////////////////////////////////
