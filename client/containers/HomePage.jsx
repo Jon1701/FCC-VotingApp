@@ -3,6 +3,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 import React from 'react';
 
+// Components.
+import BatchViewPolls from 'components/BatchViewPolls';
+
 ////////////////////////////////////////////////////////////////////////////////
 // Redux
 ////////////////////////////////////////////////////////////////////////////////
@@ -24,6 +27,7 @@ class HomePage extends React.Component {
     return (
       <div className="columns has-text-centered">
         <div className="column is-10 is-offset-1">
+
           <div className="box">
 
             <h1 className="title is-1">Voteify</h1>
@@ -35,6 +39,14 @@ class HomePage extends React.Component {
             </p>
 
           </div>
+
+          <div className="box">
+
+            <h5 className="subtitle is-5">Recently Created Polls</h5>
+
+            <BatchViewPolls pageNum={1} perPage={10} order={'descending'}/>
+          </div>
+
         </div>
       </div>
     )
