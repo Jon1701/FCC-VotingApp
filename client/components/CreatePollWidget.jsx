@@ -41,21 +41,9 @@ export default class CreatePollWidget extends React.Component {
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleAddPollOption = this.handleAddPollOption.bind(this);
     this.handleRemovePollOption = this.handleRemovePollOption.bind(this);
-    this.setNotification = this.setNotification.bind(this);     // Set notification.
-    this.clearNotification = this.clearNotification.bind(this); // Clear notification.
+    this.setNotification = require('common/notifyFunctions').setNotification.bind(this);     // Set notification.
+    this.clearNotification = require('common/notifyFunctions').clearNotification.bind(this); // Clear notification.
     this.handleFormReset = this.handleFormReset.bind(this);     // Reset form.
-  }
-
-  // Method to set the Notification panel.
-  setNotification(type, message) {
-    this.setState({
-      notification: {type, message}
-    });
-  }
-
-  // Method to clear the Notification panel.
-  clearNotification() {
-    this.setState({notification: null});
   }
 
   // Handle form submission.

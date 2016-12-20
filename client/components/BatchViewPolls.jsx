@@ -34,21 +34,8 @@ export default class BatchViewPolls extends React.Component {
     this.getPollList = this.getPollList.bind(this);
     this.handlePreviousPolls = this.handlePreviousPolls.bind(this);
     this.handleNextPolls = this.handleNextPolls.bind(this);
-    this.setNotification = this.setNotification.bind(this);     // Set notification.
-    this.clearNotification = this.clearNotification.bind(this); // Clear notification.
-  }
-
-
-  // Method to set the Notification panel.
-  setNotification(type, message) {
-    this.setState({
-      notification: {type, message}
-    });
-  }
-
-  // Method to clear the Notification panel.
-  clearNotification() {
-    this.setState({notification: null});
+    this.setNotification = require('common/notifyFunctions').setNotification.bind(this);     // Set notification.
+    this.clearNotification = require('common/notifyFunctions').clearNotification.bind(this); // Clear notification.
   }
 
   // Method to get the previous page of polls.

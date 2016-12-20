@@ -41,23 +41,10 @@ class CastVoteWidget extends React.Component {
     }
 
     // Bind methods to component instance.
-    this.getPollData = this.getPollData.bind(this);
-    this.setNotification = this.setNotification.bind(this);     // Set notification.
-    this.clearNotification = this.clearNotification.bind(this); // Clear notification.
+    this.setNotification = require('common/notifyFunctions').setNotification.bind(this);     // Set notification.
+    this.clearNotification = require('common/notifyFunctions').clearNotification.bind(this); // Clear notification.
     this.toggleCurrentPollChoice = this.toggleCurrentPollChoice.bind(this); // Set currently selected poll choice.
     this.handleFormSubmit = this.handleFormSubmit.bind(this);  // Cast vote to server.
-  }
-
-  // Method to set the Notification panel.
-  setNotification(type, message) {
-    this.setState({
-      notification: {type, message}
-    });
-  }
-
-  // Method to clear the Notification panel.
-  clearNotification() {
-    this.setState({notification: null});
   }
 
   // Method to store the currently selected poll choice in local state.
@@ -213,7 +200,7 @@ class CastVoteWidget extends React.Component {
         return (
           <NotLoggedIn/>
         )
-        
+
       } else {
 
         //
