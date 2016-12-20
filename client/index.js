@@ -47,10 +47,12 @@ const requireAuth = (nextState, replace) => {
 
 }
 
+/*
 // Subscribe to state changes.
 store.subscribe(() => {
   console.log(store.getState());
 });
+*/
 
 // Application stylesheet.
 require("stylesheets/stylesheet.scss");
