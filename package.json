@@ -12,8 +12,8 @@
     "type": "git",
     "url": "git+https://github.com/Jon1701/Voteify.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Jon1701",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Jon1701/Voteify/issues"
   },
