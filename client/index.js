@@ -14,6 +14,7 @@ import HomePage from 'containers/HomePage'; // Homepage for / route.
 import CreatePollPage from 'containers/CreatePollPage'; // Homepage for / route.
 import ViewPollPage from 'containers/ViewPollPage'; // Homepage for /view/poll/:pollID route.
 import Dashboard from 'containers/Dashboard'; // Homepage for /view/poll/:pollID route.
+import NotFound from 'containers/NotFound'; // 404 route.
 
 ////////////////////////////////////////////////////////////////////////////////
 // React Router
@@ -70,6 +71,7 @@ const ApplicationUIContainer = (
         <Route path='/create_poll' onEnter={requireAuth} component={CreatePollPage}/>
         <Route path='/view/poll/:pollID' component={ViewPollPage}/>
         <Route path='/dashboard' component={Dashboard} onEnter={requireAuth}/>
+        <Route path='*' component={NotFound}/>
       </Route>
     </Router>
   </Provider>
