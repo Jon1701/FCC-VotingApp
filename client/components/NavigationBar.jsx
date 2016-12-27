@@ -46,7 +46,9 @@ class NavigationBar extends React.Component {
     return (
       <nav className="nav">
         <div className="nav-left">
-          <Link to='/' className="nav-item is-brand">Voteify</Link>
+          <Link to='/' className="nav-item is-brand">
+            <img src={require("images/brand.png")} alt="Voteify"/>
+          </Link>
         </div>
 
         {/* Different navigation buttons for authenticated and unauthenticated users. */}

@@ -30,7 +30,7 @@ class HomePage extends React.Component {
 
           <div className="box">
 
-            <h1 className="title is-1">Voteify</h1>
+            <img id="brand-homepage" src={require("images/brand.png")}/>
 
             <h5 className="subtitle is-5">A FreeCodeCamp project</h5>
 
