@@ -35,7 +35,7 @@ const login = (req, res, next) => {
   }
 
   // Access the database.
-  User.findOne({username: username}, (error, result) => {
+  User.findOne({username: { $regex : new RegExp(username, "i") }}, (error, result) => {
 
     // Error check.
     if (error) { return next(RESPONSE.ERROR.DB.DB_ERROR); }

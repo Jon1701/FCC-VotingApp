@@ -53,7 +53,7 @@ const signup = (req, res, next) => {
   let password = password1;
 
   // Search the collection by username.
-  User.find({username: username}, (err, results) => {
+  User.find({username: { $regex : new RegExp(username, "i") }}, (err, results) => {
 
     // Error checking.
     if (err) {
