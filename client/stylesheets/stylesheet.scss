@@ -4,16 +4,6 @@ $primary: #6441A4;
 // Imports.
 @import '~bulma/bulma';  // Bulma.io
 
-// Define font: Lobster
-@font-face {
-  font-family: "Lobster";
-  src: url("../media/fonts/Lobster-Regular.ttf");
-}
-
-.font-lobster {
-  font-family: "Lobster";
-}
-
 // Add a little bit of margin below the navigation bar.
 .nav {
   margin-bottom: 20px;
@@ -22,7 +12,6 @@ $primary: #6441A4;
 
 // Customize navbar brand size and font.
 .is-brand {
-  font-family: "Lobster";
   font-size: 2em;
 }
 
