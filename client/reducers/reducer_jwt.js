@@ -6,8 +6,18 @@ const jwt = (state=null, action) => {
     // Store JSON web token in state.
     case 'STORE_TOKEN':
 
-      // Store token in session storage.
-      sessionStorage.setItem('token', action.payload)
+      // Safari private mode workaround.
+      try {
+
+        // Store token in session storage.
+        sessionStorage.setItem('token', action.payload);
+
+      } catch(e) {
+
+        // Don't use session storage for tokens in Safari when in private mode.
+        // Only use redux state for tokens.
+
+      }
 
       // Store token and username in state.
       return action.payload;
