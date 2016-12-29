@@ -4,6 +4,12 @@ $primary: #6441A4;
 // Imports.
 @import '~bulma/bulma';  // Bulma.io
 
+// Limit .box to a maximum width of 1000px;
+.box {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
 // Add a little bit of margin below the navigation bar.
 .nav {
   margin-bottom: 20px;
